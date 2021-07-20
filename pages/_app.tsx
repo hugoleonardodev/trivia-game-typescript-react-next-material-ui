@@ -5,6 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { dark } from '../styles/muiThemes';
 import { OptionsProvider } from '../core/hooks/useOptions';
 import { JssStyles } from '../types/app';
+import { PlayerProvider } from '../core/hooks/usePlayer';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   useEffect(() => {
@@ -19,10 +20,12 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
   return (
     <>
+      <CssBaseline />
       <ThemeProvider theme={dark}>
         <OptionsProvider>
-          <CssBaseline />
-          <Component {...pageProps} router={router} />
+          <PlayerProvider>
+            <Component {...pageProps} router={router} />
+          </PlayerProvider>
         </OptionsProvider>
       </ThemeProvider>
     </>

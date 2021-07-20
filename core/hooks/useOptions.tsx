@@ -7,14 +7,8 @@ import React, {
   useReducer,
 } from 'react';
 
-// import { Shopping } from '../../store/ducks/shoppings/types';
-
-// import { getAllShoppings } from '../../services/api';
-
-// import { ApplicationState } from '../../store';
-
 import { genericReducer } from '../reducers';
-// import { Action } from '../../services/types';
+
 import { getAllQuestions } from '../../services';
 
 import { GameOptionsContextData } from '../../types/hooks';
@@ -25,6 +19,12 @@ export const OptionsContext = createContext<GameOptionsContextData>(
 
 export const OptionsProvider: React.FC = ({ children }) => {
   const [questions, setQuestions] = useReducer(genericReducer, []);
+
+  const [amountOfQuestions, setAmountOfQuestions] = useState(10);
+
+  const [difficultyLevel, setDifficultyLevel] = useState('');
+
+  const [questionsCategories, setQuestionsCategories] = useState(9);
 
   const [error, handleError] = useState(false);
 
@@ -48,7 +48,7 @@ export const OptionsProvider: React.FC = ({ children }) => {
       );
 
       if (response.length > 0) {
-        setQuestions({ type: 'UPDATE-ALL', payload: response });
+        setQuestions({ type: '@questions/UPDATE_ALL', payload: response });
 
         return setIsLoading(false);
       }
@@ -65,6 +65,12 @@ export const OptionsProvider: React.FC = ({ children }) => {
         questions,
         setQuestions,
         handleQuestions,
+        amountOfQuestions,
+        setAmountOfQuestions,
+        difficultyLevel,
+        setDifficultyLevel,
+        questionsCategories,
+        setQuestionsCategories,
         error,
         handleError,
         isLoading,
