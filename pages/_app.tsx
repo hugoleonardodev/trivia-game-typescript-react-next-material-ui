@@ -1,31 +1,31 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { dark } from '../styles/muiThemes';
+import { OptionsProvider } from '../core/hooks/useOptions';
+import { JssStyles } from '../types/app';
 
-interface JssStyles extends Element {
-  parentNode: Node & ParentNode;
-}
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
-  React.useEffect(() => {
+  useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles: JssStyles | null =
       document.querySelector('#jss-server-side');
+
     if (jssStyles) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
   }, []);
+
   return (
-    // <AppCtx.Provider value={sampleAppContext}>
     <>
       <ThemeProvider theme={dark}>
-        <CssBaseline />
-        {/* <GlobalStyle /> */}
-        <Component {...pageProps} router={router} />
+        <OptionsProvider>
+          <CssBaseline />
+          <Component {...pageProps} router={router} />
+        </OptionsProvider>
       </ThemeProvider>
     </>
-    // </AppCtx.Provider>
   );
 };
 

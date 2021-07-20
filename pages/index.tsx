@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AppBar, Toolbar } from '@material-ui/core';
+import { useOptions } from '../core/hooks';
 
-export default function Home(): JSX.Element {
+const Home: React.FC = (): JSX.Element => {
+  const { handleQuestions } = useOptions();
+
+  useEffect(() => {
+    handleQuestions(10, 9, 'easy', 'boolean');
+  }, []);
+
   return (
     <div>
       <AppBar>
@@ -9,4 +16,6 @@ export default function Home(): JSX.Element {
       </AppBar>
     </div>
   );
-}
+};
+
+export default Home;
