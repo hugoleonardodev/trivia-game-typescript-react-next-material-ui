@@ -22,7 +22,7 @@ export const OptionsProvider: React.FC = ({ children }) => {
 
   const [amountOfQuestions, setAmountOfQuestions] = useState(10);
 
-  const [difficultyLevel, setDifficultyLevel] = useState('');
+  const [difficultyLevel, setDifficultyLevel] = useState(0);
 
   const [questionsCategories, setQuestionsCategories] = useState(9);
 

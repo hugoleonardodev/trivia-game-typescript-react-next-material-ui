@@ -1,13 +1,13 @@
 import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import {
   amber,
-  blue,
   lightGreen,
   red,
   deepOrange,
   deepPurple,
   cyan,
   yellow,
+  grey,
 } from '@material-ui/core/colors';
 
 // DARK THEME
@@ -30,7 +30,7 @@ const darkTheme = createTheme({
       main: amber[500],
     },
     info: {
-      main: blue[500],
+      main: grey[300], // info is used for custom grey
     },
   },
 });
@@ -57,7 +57,7 @@ const lightTheme = createTheme({
       main: amber[500],
     },
     info: {
-      main: blue[500],
+      main: grey[300], // info is used for custom grey
     },
   },
 });

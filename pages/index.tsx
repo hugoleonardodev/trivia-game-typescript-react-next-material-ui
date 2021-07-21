@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import { AppBar, Toolbar } from '@material-ui/core';
 import { useOptions } from '../core/hooks';
+// import Player from '../containers/Player';
+// import { InputText, ButtonOulined } from '../components';
+import ResponsiveDrawer from '../containers/Options';
 
 const Home: React.FC = (): JSX.Element => {
   const { handleQuestions } = useOptions();
@@ -10,11 +12,14 @@ const Home: React.FC = (): JSX.Element => {
   }, []);
 
   return (
-    <div>
-      <AppBar>
-        <Toolbar>Hello World</Toolbar>
-      </AppBar>
-    </div>
+    <>
+      {/* <Player>
+        <InputText />
+        <InputText />
+        <ButtonOulined>Start</ButtonOulined>
+      </Player> */}
+      <ResponsiveDrawer />
+    </>
   );
 };
 

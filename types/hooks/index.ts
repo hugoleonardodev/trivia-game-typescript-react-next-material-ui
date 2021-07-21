@@ -32,8 +32,8 @@ export interface GameOptionsContextData {
   ) => Promise<void>;
   amountOfQuestions: number;
   setAmountOfQuestions: Dispatch<SetStateAction<number>>;
-  difficultyLevel: string;
-  setDifficultyLevel: Dispatch<SetStateAction<string>>;
+  difficultyLevel: number;
+  setDifficultyLevel: Dispatch<SetStateAction<number>>;
   questionsCategories: number;
   setQuestionsCategories: Dispatch<SetStateAction<number>>;
   error: boolean;

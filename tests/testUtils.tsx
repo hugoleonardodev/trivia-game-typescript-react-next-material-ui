@@ -3,7 +3,7 @@ import { ReactElement, JSXElementConstructor } from 'react';
 import { render, RenderResult } from '@testing-library/react';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { OptionsProvider } from '../core/hooks/useOptions';
-import { dark } from '../styles/muiThemes';
+import { dark } from '../styles/themes/muiThemes';
 
 const Providers = ({ children }: Element) => {
   return (

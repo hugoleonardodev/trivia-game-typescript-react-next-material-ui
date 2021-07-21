@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { dark } from '../styles/muiThemes';
+import { light } from '../styles/themes/muiThemes';
 import { OptionsProvider } from '../core/hooks/useOptions';
 import { JssStyles } from '../types/app';
 import { PlayerProvider } from '../core/hooks/usePlayer';
+import GlobalCss from '../styles/global';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   useEffect(() => {
@@ -21,7 +22,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   return (
     <>
       <CssBaseline />
-      <ThemeProvider theme={dark}>
+      <ThemeProvider theme={light}>
+        <GlobalCss />
         <OptionsProvider>
           <PlayerProvider>
             <Component {...pageProps} router={router} />
