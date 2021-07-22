@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Switch from '@material-ui/core/Switch';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
-const ButtonSwitch: React.FC = () => {
-  const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-  });
+interface ButtonSwitchProps {
+  handleSetTheme: (isChecked: boolean) => void;
+}
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
+const ButtonSwitch: React.FC<ButtonSwitchProps> = ({ handleSetTheme }) => {
+  const [isChecked, setIsChedked] = React.useState(true);
+
+  const handleChange = useCallback(() => {
+    setIsChedked(!isChecked);
+    handleSetTheme(!isChecked);
+  }, [isChecked]);
 
   return (
     <div
@@ -24,7 +26,7 @@ const ButtonSwitch: React.FC = () => {
         Switch Color Theme
       </Typography>
       <Switch
-        checked={state.checkedA}
+        checked={isChecked}
         onChange={handleChange}
         name="checkedA"
         inputProps={{ 'aria-label': 'primary checkbox' }}

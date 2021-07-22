@@ -4,23 +4,17 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-// import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import MailIcon from '@material-ui/icons/Mail';
-// import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../../styles/library';
+import { useOptions } from '../../core/hooks';
 import Player from '../Player';
-import { ButtonOutlined, InputText } from '../../components';
 import SliderOptions from '../../components/SliderOptions';
 import ButtonSwitch from '../../components/ButtonSwitch';
 
 import { marks } from '../../common/constants';
-import { useOptions } from '../../core/hooks';
 
 function convertValueToText(value: number) {
   return `${value}°C`;
@@ -36,8 +30,14 @@ interface Props {
   window?: () => Window;
 }
 
-export default function ResponsiveDrawer(props: Props) {
-  const { amountOfQuestions, difficultyLevel } = useOptions();
+const ResponsiveDrawer: React.FC<Props> = (props) => {
+  const {
+    amountOfQuestions,
+    difficultyLevel,
+    handleSetTheme,
+    handleAmount,
+    handleDifficulty,
+  } = useOptions();
   const { window } = props;
 
   const styles = useStyles();
@@ -58,9 +58,10 @@ export default function ResponsiveDrawer(props: Props) {
             id="difficulty-level"
             title="Difficulty Level"
             step={33.34}
-            stepMarks={marks}
+            stepMarks={marks.difficulty}
             valueText={convertValueToText}
             value={difficultyLevel}
+            handleAmount={handleDifficulty}
           />
         </ListItem>
       </List>
@@ -71,16 +72,17 @@ export default function ResponsiveDrawer(props: Props) {
             id="amount-of-questions"
             title="Amount of Questions"
             step={33.34}
-            stepMarks={marks}
+            stepMarks={marks.amount}
             valueText={convertValueToText}
             value={amountOfQuestions}
+            handleAmount={handleAmount}
           />
         </ListItem>
       </List>
       <Divider />
       <List>
         <ListItem button key="switch-theme">
-          <ButtonSwitch />
+          <ButtonSwitch handleSetTheme={handleSetTheme} />
         </ListItem>
       </List>
       <Divider />
@@ -92,7 +94,7 @@ export default function ResponsiveDrawer(props: Props) {
 
   return (
     <div className={styles.root}>
-      <AppBar position="fixed" className={styles.appBar}>
+      <AppBar position="fixed">
         <Toolbar>
           <IconButton
             color="inherit"
@@ -108,7 +110,7 @@ export default function ResponsiveDrawer(props: Props) {
           </Typography>
         </Toolbar>
       </AppBar>
-      <nav className={styles.drawer} aria-label="mailbox folders">
+      <nav aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation="css">
           <Drawer
@@ -139,11 +141,9 @@ export default function ResponsiveDrawer(props: Props) {
           </Drawer>
         </Hidden>
       </nav>
-      <Player>
-        <InputText label="Player Name" />
-        <InputText label="GitHub User Name" />
-        <ButtonOutlined>PLAY</ButtonOutlined>
-      </Player>
+      <Player />
     </div>
   );
-}
+};
+
+export default ResponsiveDrawer;

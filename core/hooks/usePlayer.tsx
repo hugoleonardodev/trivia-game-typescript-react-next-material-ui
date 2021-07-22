@@ -3,6 +3,7 @@ import React, {
   // useCallback,
   useState,
   useContext,
+  useCallback,
   // useEffect,
   // useReducer,
 } from 'react';
@@ -27,6 +28,20 @@ export const PlayerProvider: React.FC = ({ children }) => {
   const [playerTimer, setPlayerTimer] = useState(30);
 
   const [hasNext, setHasNext] = useState(true);
+
+  const handlePlayer = useCallback(
+    (event: any) => {
+      setPlayer(event.target.value);
+    },
+    [setPlayer]
+  );
+
+  const handleGitHubId = useCallback(
+    (event: any) => {
+      setGitHubId(event.target.value);
+    },
+    [setGitHubId]
+  );
 
   // useEffect(() => {
   //   setIsLoading(true);
@@ -70,6 +85,8 @@ export const PlayerProvider: React.FC = ({ children }) => {
         setPlayerTimer,
         hasNext,
         setHasNext,
+        handlePlayer,
+        handleGitHubId,
       }}
     >
       {children}

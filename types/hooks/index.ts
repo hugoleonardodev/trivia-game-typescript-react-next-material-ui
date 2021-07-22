@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, ChangeEvent } from 'react';
 
 import { Action } from '../../types/actions';
 
@@ -19,6 +19,8 @@ import { Question } from '../reducers/index';
  * @handleError : opentdb API no results error handling
  * @isLoading : loading opentdb API data
  * @setIsLoading : set loading opentdb API data
+ * @handleSetTheme : handle theme switching
+ * @switchTheme : boolean false to light true dark
  */
 
 export interface GameOptionsContextData {
@@ -40,6 +42,13 @@ export interface GameOptionsContextData {
   handleError: Dispatch<SetStateAction<boolean>>;
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
+  handleSetTheme: (isChecked: boolean) => void;
+  switchTheme: boolean;
+  handleAmount: (event: ChangeEvent<HTMLInputElement>, value: number) => void;
+  handleDifficulty: (
+    event: ChangeEvent<HTMLInputElement>,
+    value: number
+  ) => void;
 }
 
 /**
@@ -65,4 +74,6 @@ export interface GamePlayerContextData {
   setPlayerTimer: Dispatch<SetStateAction<number>>;
   hasNext: boolean;
   setHasNext: Dispatch<SetStateAction<boolean>>;
+  handlePlayer: (event: any) => void;
+  handleGitHubId: (event: any) => void;
 }

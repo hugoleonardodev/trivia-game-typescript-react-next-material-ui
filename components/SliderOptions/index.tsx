@@ -20,6 +20,10 @@ interface SliderOptionsProps {
   value: number;
   step: number;
   stepMarks: Marks[];
+  handleAmount: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    value: number
+  ) => void;
 }
 
 const SliderOptions: React.FC<SliderOptionsProps> = ({
@@ -29,6 +33,7 @@ const SliderOptions: React.FC<SliderOptionsProps> = ({
   value,
   step,
   stepMarks,
+  handleAmount,
 }) => {
   const styles = useStyles();
 
@@ -41,8 +46,11 @@ const SliderOptions: React.FC<SliderOptionsProps> = ({
         defaultValue={value}
         getAriaValueText={valueText}
         aria-labelledby={id}
+        name={id}
         step={step}
         marks={stepMarks}
+        onChange={handleAmount}
+        value={value}
       />
     </div>
   );

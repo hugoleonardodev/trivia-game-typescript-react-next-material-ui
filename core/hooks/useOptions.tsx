@@ -17,10 +17,19 @@ export const OptionsContext = createContext<GameOptionsContextData>(
   {} as GameOptionsContextData
 );
 
-export const OptionsProvider: React.FC = ({ children }) => {
+interface OptionsProviderProps {
+  handleSetTheme: (isChecked: boolean) => void;
+  switchTheme: boolean;
+}
+
+export const OptionsProvider: React.FC<OptionsProviderProps> = ({
+  children,
+  handleSetTheme,
+  switchTheme,
+}) => {
   const [questions, setQuestions] = useReducer(genericReducer, []);
 
-  const [amountOfQuestions, setAmountOfQuestions] = useState(10);
+  const [amountOfQuestions, setAmountOfQuestions] = useState(0);
 
   const [difficultyLevel, setDifficultyLevel] = useState(0);
 
@@ -59,6 +68,20 @@ export const OptionsProvider: React.FC = ({ children }) => {
     [questions]
   );
 
+  const handleAmount = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>, value: number) => {
+      setAmountOfQuestions(value);
+    },
+    [setAmountOfQuestions]
+  );
+
+  const handleDifficulty = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>, value: number) => {
+      setDifficultyLevel(value);
+    },
+    [setDifficultyLevel]
+  );
+
   return (
     <OptionsContext.Provider
       value={{
@@ -75,6 +98,10 @@ export const OptionsProvider: React.FC = ({ children }) => {
         handleError,
         isLoading,
         setIsLoading,
+        switchTheme,
+        handleSetTheme,
+        handleAmount,
+        handleDifficulty,
       }}
     >
       {children}

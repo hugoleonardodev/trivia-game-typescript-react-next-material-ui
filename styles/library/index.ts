@@ -27,7 +27,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       height: theme.spacing(6),
       fontSize: theme.spacing(4),
       padding: theme.spacing(2),
+      border: '2px solid rgba(0, 0, 0, 0.23)',
       backgroundColor: theme.palette.primary.main,
+      color: theme.palette.primary.contrastText,
+      width: '-webkit-fill-available',
       '&:hover': {
         backgroundColor: theme.palette.primary.light,
       },
@@ -37,14 +40,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.primary.contrastText,
       backgroundColor: theme.palette.info.light,
     },
-    drawer: {
-      // marginLeft: drawerWidth,
-      // [theme.breakpoints.down('sm')]: {
-      //   marginLeft: drawerWidth,
-      //   flexShrink: 0,
-      // },
-    },
-    appBar: {},
     menuButton: {
       marginRight: theme.spacing(2),
       [theme.breakpoints.up('sm')]: {

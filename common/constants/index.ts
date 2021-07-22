@@ -1,6 +1,6 @@
 export const BASE_URL = 'https://opentdb.com/api.php?';
 
-export const marks = [
+const difficulty = [
   {
     value: 1,
     label: 'Random',
@@ -18,3 +18,24 @@ export const marks = [
     label: 'Hard',
   },
 ];
+
+const amount = [
+  {
+    value: 1,
+    label: '10',
+  },
+  {
+    value: 33.33,
+    label: '20',
+  },
+  {
+    value: 66.67,
+    label: '30',
+  },
+  {
+    value: 99,
+    label: '40',
+  },
+];
+
+export const marks = { difficulty, amount };
