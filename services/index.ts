@@ -2,20 +2,6 @@ import axios from 'axios';
 import { BASE_URL } from '../common/constants';
 import { generateUrl } from '../common/helpers';
 
-// interface Question {
-//   category: string;
-//   type: string;
-//   difficulty: string;
-//   question: string;
-//   correct_answer: string | boolean;
-//   incorrect_answers: string[] | boolean[];
-// }
-
-// interface TriviaApiResponse {
-//   response_code: number;
-//   results: Question[];
-// }
-
 export const getAllQuestions = async (
   amount: number,
   category?: number,

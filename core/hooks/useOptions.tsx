@@ -11,6 +11,8 @@ import { genericReducer } from '../reducers';
 
 import { getAllQuestions } from '../../services';
 
+import { getOptionsStrings } from '../../common/helpers';
+
 import { GameOptionsContextData } from '../../types/hooks';
 
 export const OptionsContext = createContext<GameOptionsContextData>(
@@ -46,7 +48,7 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({
   });
 
   const handleQuestions = useCallback(
-    async (amount, category, difficulty, type) => {
+    async (amount: number, category, difficulty, type) => {
       setIsLoading(true);
 
       const response = await getAllQuestions(
@@ -65,7 +67,7 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({
 
       return handleError(true);
     },
-    [questions]
+    [questions, setIsLoading]
   );
 
   const handleAmount = useCallback(
@@ -81,6 +83,23 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({
     },
     [setDifficultyLevel]
   );
+
+  const handleGameStartOptions = useCallback(async () => {
+    setIsLoading(true);
+    const options = getOptionsStrings(amountOfQuestions, difficultyLevel);
+    await handleQuestions(
+      options.amountString,
+      '',
+      options.difficultyString,
+      ''
+    );
+  }, [
+    setIsLoading,
+    handleQuestions,
+    getOptionsStrings,
+    amountOfQuestions,
+    difficultyLevel,
+  ]);
 
   return (
     <OptionsContext.Provider
@@ -102,6 +121,7 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({
         handleSetTheme,
         handleAmount,
         handleDifficulty,
+        handleGameStartOptions,
       }}
     >
       {children}

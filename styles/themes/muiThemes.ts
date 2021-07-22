@@ -7,35 +7,8 @@ import {
   deepPurple,
   cyan,
   yellow,
-  grey,
+  blueGrey,
 } from '@material-ui/core/colors';
-
-// DARK THEME
-
-const darkTheme = createTheme({
-  palette: {
-    primary: {
-      main: deepPurple[500],
-    },
-    secondary: {
-      main: deepOrange[500],
-    },
-    error: {
-      main: red[500],
-    },
-    success: {
-      main: lightGreen[500],
-    },
-    warning: {
-      main: amber[500],
-    },
-    info: {
-      main: grey[300], // info is used for custom grey
-    },
-  },
-});
-
-export const dark = responsiveFontSizes(darkTheme);
 
 // LIGHT THEME
 
@@ -57,9 +30,36 @@ const lightTheme = createTheme({
       main: amber[500],
     },
     info: {
-      main: grey[300], // info is used for custom grey
+      main: blueGrey[200], // info is used for custom blueGrey background color
     },
   },
 });
 
 export const light = responsiveFontSizes(lightTheme);
+
+// DARK THEME
+
+const darkTheme = createTheme({
+  palette: {
+    primary: {
+      main: deepPurple[500],
+    },
+    secondary: {
+      main: deepOrange[500],
+    },
+    error: {
+      main: red[500],
+    },
+    success: {
+      main: lightGreen[500],
+    },
+    warning: {
+      main: amber[500],
+    },
+    info: {
+      main: blueGrey[600], // info is used for custom blueGrey background color
+    },
+  },
+});
+
+export const dark = responsiveFontSizes(darkTheme);

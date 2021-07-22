@@ -8,12 +8,18 @@ const GlobalCss = withStyles({
       fontSize: '1.75rem',
     },
     body: {
-      fontSize: '1.75rem',
-      display: 'flex',
-      justifyContent: 'center',
       height: '100vh',
       width: '100vw',
-      alignItems: 'center',
+      margin: 0,
+      padding: 0,
+      boxSizing: 'border-box',
+    },
+    a: {
+      width: 'inherit',
+      position: 'absolute',
+      textDecoration: 'none',
+      color: 'inherit',
+      padding: '16px',
     },
   },
 })(() => null);

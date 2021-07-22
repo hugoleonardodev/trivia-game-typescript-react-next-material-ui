@@ -49,6 +49,7 @@ export interface GameOptionsContextData {
     event: ChangeEvent<HTMLInputElement>,
     value: number
   ) => void;
+  handleGameStartOptions: () => Promise<void>;
 }
 
 /**

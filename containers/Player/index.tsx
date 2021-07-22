@@ -5,6 +5,8 @@ import { usePlayer } from '../../core/hooks/usePlayer';
 import InputText from '../../components/InputText';
 import DialogModal from '../DialogModal';
 
+import { dialogs } from '../../common/constants';
+
 interface PlayerProps {
   children?: ReactNode;
 }
@@ -26,7 +28,11 @@ const Player: React.FC<PlayerProps> = () => {
         handlePlayer={handleGitHubId}
         player={gitHubId}
       />
-      <DialogModal />
+      <DialogModal
+        label={dialogs.home.label}
+        title={dialogs.home.title}
+        content={dialogs.home.content}
+      />
     </FormControl>
   );
 };
