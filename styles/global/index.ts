@@ -1,6 +1,6 @@
-import { withStyles } from '@material-ui/core';
+import { Typography, withStyles } from '@material-ui/core';
 
-const GlobalCss = withStyles({
+export const GlobalCss = withStyles({
   // @global is handled by jss-plugin-global.
   '@global': {
     // You should target [class*="MuiButton-root"] instead if you nest themes.
@@ -24,4 +24,9 @@ const GlobalCss = withStyles({
   },
 })(() => null);
 
-export default GlobalCss;
+export const MaterialIcons = withStyles({
+  root: {
+    fontFamily: 'Material Icons',
+    fontSize: '2rem',
+  },
+})(Typography);

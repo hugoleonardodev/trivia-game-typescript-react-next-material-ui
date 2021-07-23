@@ -14,7 +14,8 @@ interface PlayerProps {
 const Player: React.FC<PlayerProps> = () => {
   const styles = useStyles();
 
-  const { handlePlayer, player, handleGitHubId, gitHubId } = usePlayer();
+  const { handlePlayer, player, handleGitHubUserName, gitHubUserName } =
+    usePlayer();
 
   return (
     <FormControl className={styles.formControl}>
@@ -25,8 +26,8 @@ const Player: React.FC<PlayerProps> = () => {
       />
       <InputText
         label="GitHub User Name"
-        handlePlayer={handleGitHubId}
-        player={gitHubId}
+        handlePlayer={handleGitHubUserName}
+        player={gitHubUserName}
       />
       <DialogModal
         label={dialogs.home.label}

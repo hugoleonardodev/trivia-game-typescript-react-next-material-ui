@@ -55,7 +55,7 @@ export interface GameOptionsContextData {
 /**
  * @player : game player
  * @setPlayer : set game player nickname
- * @gitHubId : player's GitHub username
+ * @gitHubUserName : player's GitHub username
  * @playerScore : player's total score
  * @setPlayerScore : set player's total score
  * @playerTimer : player's timer
@@ -67,8 +67,8 @@ export interface GameOptionsContextData {
 export interface GamePlayerContextData {
   player: string;
   setPlayer: Dispatch<SetStateAction<string>>;
-  gitHubId: string;
-  setGitHubId: Dispatch<SetStateAction<string>>;
+  gitHubUserName: string;
+  setGitHubUserName: Dispatch<SetStateAction<string>>;
   playerScore: number;
   setPlayerScore: Dispatch<SetStateAction<number>>;
   playerTimer: number;
@@ -76,5 +76,10 @@ export interface GamePlayerContextData {
   hasNext: boolean;
   setHasNext: Dispatch<SetStateAction<boolean>>;
   handlePlayer: (event: any) => void;
-  handleGitHubId: (event: any) => void;
+  handleGitHubUserName: (event: any) => void;
+  handleAnswer: (event: any) => void;
+  // question: Question;
+  questionsCounter: number;
+  correctAnswers: number;
+  wrongAnswers: number;
 }

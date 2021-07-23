@@ -11,13 +11,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       alignItems: 'center',
       flexWrap: 'wrap',
-      // margin: theme.spacing(2),
       boxSizing: 'border-box',
       backgroundColor: theme.palette.info.main,
     },
-    // margin: {
-    //   margin: theme.spacing(2),
-    // },
     withoutLabel: {
       marginTop: theme.spacing(3),
     },
@@ -89,6 +85,75 @@ export const useStyles = makeStyles((theme: Theme) =>
     slider: {
       width: 200,
       marginLeft: 16,
+    },
+    header: {
+      flexGrow: 1,
+    },
+    headerMenuButton: {
+      marginRight: theme.spacing(2),
+    },
+    headerToolbar: {
+      minHeight: 128,
+      alignItems: 'flex-start',
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(2),
+    },
+    headerTitle: {
+      flexGrow: 1,
+      alignSelf: 'flex-end',
+      [theme.breakpoints.down('xs')]: {
+        display: 'none',
+      },
+    },
+    imageAvatar: {
+      display: 'flex',
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+      // [theme.breakpoints.down('sm')]: {
+      //   display: 'none',
+      // },
+    },
+    list: {
+      [theme.breakpoints.down('xs')]: {
+        display: 'none',
+      },
+    },
+    imageAvatarLarge: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+    },
+    avatarSmallOptions: {
+      width: theme.spacing(2.5),
+      height: theme.spacing(2.5),
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.secondary.contrastText,
+      fontSize: theme.spacing(2),
+    },
+    chipOptions: {
+      display: 'flex',
+      justifyContent: 'center',
+      height: '20px',
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.secondary.contrastText,
+      // flexWrap: 'wrap',
+      '& > *': {
+        margin: theme.spacing(0.5),
+      },
+    },
+    avatarSmallCorrect: {
+      width: theme.spacing(2.5),
+      height: theme.spacing(2.5),
+      backgroundColor: theme.palette.success.main,
+      color: theme.palette.secondary.contrastText,
+      fontSize: theme.spacing(2),
+    },
+    avatarSmallWrong: {
+      width: theme.spacing(2.5),
+      height: theme.spacing(2.5),
+      backgroundColor: theme.palette.error.main,
+      color: theme.palette.secondary.contrastText,
+      fontSize: theme.spacing(2),
     },
   })
 );

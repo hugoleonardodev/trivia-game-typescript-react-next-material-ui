@@ -15,6 +15,7 @@ import SliderOptions from '../../components/SliderOptions';
 import ButtonSwitch from '../../components/ButtonSwitch';
 
 import { marks } from '../../common/constants';
+import { MaterialIcons } from '../../styles/global';
 
 function convertValueToText(value: number) {
   return `${value}°C`;
@@ -30,7 +31,7 @@ interface Props {
   window?: () => Window;
 }
 
-const ResponsiveDrawer: React.FC<Props> = (props) => {
+const Options: React.FC<Props> = (props) => {
   const {
     amountOfQuestions,
     difficultyLevel,
@@ -106,6 +107,7 @@ const ResponsiveDrawer: React.FC<Props> = (props) => {
             {/* <MenuIcon /> */}
           </IconButton>
           <Typography className={styles.logo} variant="h6" noWrap>
+            <MaterialIcons>psychology</MaterialIcons>
             Trivia Game
           </Typography>
         </Toolbar>
@@ -146,4 +148,4 @@ const ResponsiveDrawer: React.FC<Props> = (props) => {
   );
 };
 
-export default ResponsiveDrawer;
+export default Options;

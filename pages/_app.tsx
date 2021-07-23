@@ -6,7 +6,7 @@ import { light, dark } from '../styles/themes/muiThemes';
 import { OptionsProvider } from '../core/hooks/useOptions';
 import { JssStyles } from '../types/app';
 import { PlayerProvider } from '../core/hooks/usePlayer';
-import GlobalCss from '../styles/global';
+import { GlobalCss } from '../styles/global';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [theme, setTheme] = useState(light);

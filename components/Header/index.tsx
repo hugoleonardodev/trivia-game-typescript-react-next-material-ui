@@ -1,62 +1,101 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-// import MenuIcon from '@material-ui/icons/Menu';
-// import SearchIcon from '@material-ui/icons/Search';
-// import MoreIcon from '@material-ui/icons/MoreVert';
+import Badge from '@material-ui/core/Badge';
+import { useStyles } from '../../styles/library';
+import { MaterialIcons } from '../../styles/global';
+import { useOptions } from '../../core/hooks';
+import { usePlayer } from '../../core/hooks/usePlayer';
+import ImageAvatar from '../Avatar';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  toolbar: {
-    minHeight: 128,
-    alignItems: 'flex-start',
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-    alignSelf: 'flex-end',
-  },
-}));
+import { getOptionsStrings } from '../../common/helpers';
 
-export default function Header() {
-  const classes = useStyles();
+const Header: React.FC = () => {
+  const styles = useStyles();
+
+  const { amountOfQuestions, difficultyLevel } = useOptions();
+
+  const { player, gitHubUserName, correctAnswers, wrongAnswers } = usePlayer();
+
+  const options = getOptionsStrings(amountOfQuestions, difficultyLevel);
 
   return (
-    <div className={classes.root}>
+    <div className={styles.header}>
       <AppBar position="static">
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            {/* <MenuIcon /> */}
-          </IconButton>
-          <Typography className={classes.title} variant="h5" noWrap>
-            Material-UI
+        <Toolbar className={styles.headerToolbar}>
+          <List className={styles.list}>
+            <ListItem>
+              <ImageAvatar gitHubUserName={gitHubUserName} />
+            </ListItem>
+            <ListItem>
+              <Typography variant="h5" noWrap>
+                {player}
+              </Typography>
+            </ListItem>
+          </List>
+
+          <Typography className={styles.headerTitle} variant="h5" noWrap>
+            Trivia Game
           </Typography>
-          <IconButton aria-label="search" color="inherit">
-            {/* <SearchIcon /> */}
-          </IconButton>
-          <IconButton
-            aria-label="display more actions"
-            edge="end"
-            color="inherit"
-          >
-            {/* <MoreIcon /> */}
-          </IconButton>
+
+          <List>
+            <ListItem>
+              <Badge>
+                <MaterialIcons>pin</MaterialIcons>
+              </Badge>
+              <Badge>
+                <Typography>Total Questions</Typography>
+              </Badge>
+              <Avatar className={styles.avatarSmallOptions}>
+                {options.amountString}
+              </Avatar>
+            </ListItem>
+            <ListItem>
+              <Badge>
+                <MaterialIcons>assessment</MaterialIcons>
+              </Badge>
+              <Badge>
+                <Typography>Difficulty Level</Typography>
+              </Badge>
+              <Chip
+                label={options.difficultyString}
+                className={styles.chipOptions}
+              ></Chip>
+            </ListItem>
+          </List>
+          <List>
+            <ListItem>
+              <Badge>
+                <MaterialIcons>done_outline</MaterialIcons>
+              </Badge>
+              <Badge>
+                <Typography>Correct Answers</Typography>
+              </Badge>
+              <Avatar className={styles.avatarSmallCorrect}>
+                {correctAnswers}
+              </Avatar>
+            </ListItem>
+            <ListItem>
+              <Badge>
+                <MaterialIcons>close</MaterialIcons>
+              </Badge>
+              <Badge>
+                <Typography>Wrong Answers</Typography>
+              </Badge>
+              <Avatar className={styles.avatarSmallWrong}>
+                {wrongAnswers}
+              </Avatar>
+            </ListItem>
+          </List>
         </Toolbar>
       </AppBar>
     </div>
   );
-}
+};
+
+export default Header;

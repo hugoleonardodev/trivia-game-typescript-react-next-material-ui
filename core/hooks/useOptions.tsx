@@ -3,7 +3,7 @@ import React, {
   useCallback,
   useState,
   useContext,
-  useEffect,
+  // useEffect,
   useReducer,
 } from 'react';
 
@@ -41,12 +41,6 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({
 
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    setIsLoading(true);
-
-    return setIsLoading(false);
-  });
-
   const handleQuestions = useCallback(
     async (amount: number, category, difficulty, type) => {
       setIsLoading(true);
@@ -57,13 +51,13 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({
         difficulty,
         type
       );
-
+      // console.log(response);
       if (response.length > 0) {
         setQuestions({ type: '@questions/UPDATE_ALL', payload: response });
 
         return setIsLoading(false);
       }
-      setIsLoading(false);
+      // setIsLoading(false);
 
       return handleError(true);
     },
@@ -85,7 +79,7 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({
   );
 
   const handleGameStartOptions = useCallback(async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     const options = getOptionsStrings(amountOfQuestions, difficultyLevel);
     await handleQuestions(
       options.amountString,
@@ -93,9 +87,10 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({
       options.difficultyString,
       ''
     );
+    // setIsLoading(false);
   }, [
-    setIsLoading,
-    handleQuestions,
+    // setIsLoading,
+    // handleQuestions,
     getOptionsStrings,
     amountOfQuestions,
     difficultyLevel,

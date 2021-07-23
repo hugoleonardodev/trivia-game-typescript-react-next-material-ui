@@ -5,29 +5,86 @@ import React, {
   useContext,
   useCallback,
   // useEffect,
+  // useEffect,
   // useReducer,
 } from 'react';
 
-// import { useOptions } from './useOptions';
+// import { Question } from '../../types/reducers/index';
 
 import { GamePlayerContextData } from '../../types/hooks';
+import { useOptions } from './useOptions';
 
 export const PlayerContext = createContext<GamePlayerContextData>(
   {} as GamePlayerContextData
 );
 
+// const questionState = {
+//   category: 'loading',
+//   type: 'loading',
+//   difficulty: 'loading',
+//   question: 'loading',
+//   correct_answer: 'loading',
+//   incorrect_answers: ['loading'],
+// };
+
 export const PlayerProvider: React.FC = ({ children }) => {
-  // const { questions, amountOfQuestions } = useOptions();
+  const { questions } = useOptions();
+
+  const [questionsCounter, setQuesionsCounter] = useState(0);
+
+  const [correctAnswers, setCorrectAnwers] = useState(0);
+
+  const [wrongAnswers, setSwrongAnswers] = useState(0);
 
   const [player, setPlayer] = useState('');
 
-  const [gitHubId, setGitHubId] = useState('');
+  const [gitHubUserName, setGitHubUserName] = useState('');
 
   const [playerScore, setPlayerScore] = useState(0);
 
+  const [hasNext, setHasNext] = useState(true);
+
   const [playerTimer, setPlayerTimer] = useState(30);
 
-  const [hasNext, setHasNext] = useState(true);
+  // const [question, setQuestion] = useState<Question>(questionState);
+
+  // const handleQuestion = useCallback(() => {
+  //   if (hasNext) {
+  //     setQuestion(questions[questionsCounter]);
+  //   }
+  // }, [hasNext, setQuestion, questions, questionsCounter]);
+
+  const handleAnswer = useCallback(
+    (event: any) => {
+      event.preventDefault();
+      // setIsLoading(true);
+      if (
+        event.target.innerHTML === questions[questionsCounter].correct_answer
+      ) {
+        setCorrectAnwers(correctAnswers + 1);
+        setQuesionsCounter(questionsCounter + 1);
+      }
+      if (
+        event.target.innerHTML !== questions[questionsCounter].correct_answer
+      ) {
+        setSwrongAnswers(wrongAnswers + 1);
+        setQuesionsCounter(questionsCounter + 1);
+      }
+      if (questions.length <= questionsCounter) {
+        return setHasNext(false);
+      }
+      // setIsLoading(false);
+      return setHasNext(true);
+    },
+    [
+      setCorrectAnwers,
+      setSwrongAnswers,
+      setQuesionsCounter,
+      setHasNext,
+      questions,
+      questionsCounter,
+    ]
+  );
 
   const handlePlayer = useCallback(
     (event: any) => {
@@ -36,49 +93,29 @@ export const PlayerProvider: React.FC = ({ children }) => {
     [setPlayer]
   );
 
-  const handleGitHubId = useCallback(
+  const handleGitHubUserName = useCallback(
     (event: any) => {
-      setGitHubId(event.target.value);
+      setGitHubUserName(event.target.value);
     },
-    [setGitHubId]
+    [setGitHubUserName]
   );
 
   // useEffect(() => {
-  //   setIsLoading(true);
+  //   if (questions.length > 0) {
+  //     setQuestion(questions[0]);
+  //   }
+  // }, [questions]);
 
-  //   return setIsLoading(false);
-  // });
-
-  // const handleQuestions = useCallback(
-  //   async (amount, category, difficulty, type) => {
-  //     setIsLoading(true);
-
-  //     const response = await getAllQuestions(
-  //       amount,
-  //       category,
-  //       difficulty,
-  //       type
-  //     );
-
-  //     if (response.length > 0) {
-  //       setQuestions({ type: 'UPDATE-ALL', payload: response });
-
-  //       return setIsLoading(false);
-  //     }
-  //     setIsLoading(false);
-
-  //     return handleError(true);
-  //   },
-  //   [questions]
-  // );
-
+  // useEffect(() => {
+  //   setQuestion(questions[questionsCounter]);
+  // }, [questionsCounter, setQuestion, question]);
   return (
     <PlayerContext.Provider
       value={{
         player,
         setPlayer,
-        gitHubId,
-        setGitHubId,
+        gitHubUserName,
+        setGitHubUserName,
         playerScore,
         setPlayerScore,
         playerTimer,
@@ -86,7 +123,12 @@ export const PlayerProvider: React.FC = ({ children }) => {
         hasNext,
         setHasNext,
         handlePlayer,
-        handleGitHubId,
+        handleGitHubUserName,
+        // question,
+        handleAnswer,
+        questionsCounter,
+        correctAnswers,
+        wrongAnswers,
       }}
     >
       {children}
