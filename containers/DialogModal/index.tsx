@@ -11,7 +11,8 @@ import { TransitionProps } from '@material-ui/core/transitions';
 import ButtonOutlined from '../../components/ButtonOutlined';
 import { usePlayer } from '../../core/hooks/usePlayer';
 import { useOptions } from '../../core/hooks';
-import { markdownParser, randomDirections } from '../../common/helpers';
+import { randomDirections } from '../../common/helpers';
+import MarkdownParser from '../../components/MarkdownParser';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -29,7 +30,7 @@ interface DialogModalProps {
 const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
   const [open, setOpen] = React.useState(false);
 
-  const { player, handleAnswer, questionsCounter } = usePlayer();
+  const { player, handleAnswer, questionsCounter, hasNext } = usePlayer();
 
   const { questions, handleGameStartOptions, isLoading } = useOptions();
 
@@ -48,21 +49,43 @@ const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
   const handleClickAnswer = (event: any) => {
     handleAnswer(event);
     handleClose();
-    // handleClickOpen();
   };
 
   React.useEffect(() => {
     !isHome && handleClickOpen();
   }, []);
 
+  let timer: any;
   React.useEffect(() => {
-    setTimeout(() => {
-      !isHome && handleClickOpen();
-    }, 500);
+    if (questionsCounter < questions.length) {
+      timer = setTimeout(() => {
+        !isHome && handleClickOpen();
+      }, 500);
+    }
+    return () => clearTimeout(timer);
   }, [handleClickAnswer, questionsCounter]);
+
   if (isLoading) {
     return <div>loading</div>;
   }
+
+  if (!hasNext) {
+    return (
+      <Dialog open={!hasNext}>
+        <DialogContent>
+          <DialogContentText>Game Over</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <ButtonOutlined handleClick={(e) => e.preventDefault()}>
+            <Link href="/dashboard">Dashboards</Link>
+          </ButtonOutlined>
+        </DialogActions>
+      </Dialog>
+    );
+  }
+
+  const question = questions[questionsCounter];
+
   return (
     <div>
       {isHome && (
@@ -80,9 +103,7 @@ const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
         <DialogContent>
           <DialogContentText id={`${label}-description`}>
             {isHome && `Hello ${player}!! `}
-            {isHome
-              ? content
-              : markdownParser(questions[questionsCounter].question)}
+            {isHome ? content : <MarkdownParser markdown={question.question} />}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -90,9 +111,11 @@ const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
             <ButtonOutlined handleClick={handleClose}>Cancel</ButtonOutlined>
           ) : (
             <ButtonOutlined handleClick={handleClickAnswer}>
-              {typeof questions[questionsCounter].correct_answer === 'string'
-                ? markdownParser(questions[questionsCounter].correct_answer)
-                : questions[questionsCounter].correct_answer}
+              {typeof question.correct_answer === 'string' ? (
+                <MarkdownParser markdown={question.correct_answer} />
+              ) : (
+                question.correct_answer
+              )}
             </ButtonOutlined>
           )}
 
@@ -101,17 +124,17 @@ const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
               <Link href="/ingame">Start</Link>
             </ButtonOutlined>
           ) : (
-            questions[questionsCounter].incorrect_answers.map(
-              (answer, index) => (
-                <React.Fragment key={`answer-${index}`}>
-                  <ButtonOutlined handleClick={handleClickAnswer}>
-                    {typeof answer === 'string'
-                      ? markdownParser(answer)
-                      : answer}
-                  </ButtonOutlined>
-                </React.Fragment>
-              )
-            )
+            question.incorrect_answers.map((answer, index) => (
+              <React.Fragment key={`answer-${index}`}>
+                <ButtonOutlined handleClick={handleClickAnswer}>
+                  {typeof answer === 'string' ? (
+                    <MarkdownParser markdown={answer} />
+                  ) : (
+                    answer
+                  )}
+                </ButtonOutlined>
+              </React.Fragment>
+            ))
           )}
         </DialogActions>
       </Dialog>

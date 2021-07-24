@@ -1,13 +1,13 @@
 import React from 'react';
 import DialogModal from '../../containers/DialogModal';
-import Header from '../../components/Header';
+import DisplayHeader from '../../components/DisplayHeader';
 
 import { dialogs } from '../../common/constants';
 
 const InGame: React.FC = () => {
   return (
     <div>
-      <Header />
+      <DisplayHeader />
       <DialogModal
         label={dialogs.home.label}
         title={dialogs.home.title}

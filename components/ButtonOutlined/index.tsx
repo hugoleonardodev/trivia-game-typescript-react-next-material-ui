@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import Button from '@material-ui/core/Button';
-import { useStyles } from '../../styles/library';
+import { useStyles } from '../../styles/global';
 
 interface ButtonOutlinedProps {
   children?: ReactNode;

@@ -1,6 +1,6 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import { useStyles } from '../../styles/library';
+import { useStyles } from '../../styles/global';
 
 interface InputTextProps {
   label: string;

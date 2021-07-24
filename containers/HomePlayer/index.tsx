@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import FormControl from '@material-ui/core/FormControl';
-import { useStyles } from '../../styles/library';
+import { useStyles } from '../../styles/global';
 import { usePlayer } from '../../core/hooks/usePlayer';
 import InputText from '../../components/InputText';
 import DialogModal from '../DialogModal';
@@ -11,7 +11,7 @@ interface PlayerProps {
   children?: ReactNode;
 }
 
-const Player: React.FC<PlayerProps> = () => {
+const HomePlayer: React.FC<PlayerProps> = () => {
   const styles = useStyles();
 
   const { handlePlayer, player, handleGitHubUserName, gitHubUserName } =
@@ -38,4 +38,4 @@ const Player: React.FC<PlayerProps> = () => {
   );
 };
 
-export default Player;
+export default HomePlayer;

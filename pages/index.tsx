@@ -1,10 +1,10 @@
 import React from 'react';
-import Options from '../containers/Options';
+import HomeOptionsWithHomePlayer from '../containers/HomeOptions';
 
 const Home: React.FC = (): JSX.Element => {
   return (
     <>
-      <Options />
+      <HomeOptionsWithHomePlayer />
     </>
   );
 };

@@ -8,11 +8,19 @@ import React, {
   // useEffect,
   // useReducer,
 } from 'react';
+import { updateLocalStorage } from '../../services';
 
 // import { Question } from '../../types/reducers/index';
 
 import { GamePlayerContextData } from '../../types/hooks';
+import { Question } from '../../types/reducers';
 import { useOptions } from './useOptions';
+
+export interface GameHistory {
+  currentQuestion: Question;
+  playerAnswer: string;
+  isCorrect: boolean;
+}
 
 export const PlayerContext = createContext<GamePlayerContextData>(
   {} as GamePlayerContextData
@@ -46,6 +54,37 @@ export const PlayerProvider: React.FC = ({ children }) => {
 
   const [playerTimer, setPlayerTimer] = useState(30);
 
+  const [gameHistory, setGameHistory] = useState<GameHistory[]>([]);
+
+  const [playerRating, setPlayerRating] = useState(0);
+
+  const handlePlayerRating = useCallback(() => {
+    const rating = correctAnswers === 0 ? 0 : correctAnswers / questions.length;
+
+    setPlayerRating(rating * 100);
+  }, [correctAnswers, questions, setPlayerRating]);
+
+  const handleGameHistory = useCallback(
+    (event: any) => {
+      const currentQuestion = questions[questionsCounter];
+
+      const playerAnswer = event.target.innerText;
+
+      const isCorrect = playerAnswer === currentQuestion.correct_answer;
+
+      const newGameHistory = {
+        currentQuestion,
+        playerAnswer,
+        isCorrect,
+      };
+
+      updateLocalStorage(gameHistory, newGameHistory);
+
+      return setGameHistory([...gameHistory, newGameHistory]);
+    },
+    [questions, questionsCounter, setGameHistory, gameHistory]
+  );
+
   // const [question, setQuestion] = useState<Question>(questionState);
 
   // const handleQuestion = useCallback(() => {
@@ -57,22 +96,29 @@ export const PlayerProvider: React.FC = ({ children }) => {
   const handleAnswer = useCallback(
     (event: any) => {
       event.preventDefault();
-      // setIsLoading(true);
+      handleGameHistory(event);
+      handlePlayerRating();
       if (
-        event.target.innerHTML === questions[questionsCounter].correct_answer
+        event.target.innerText === questions[questionsCounter].correct_answer
       ) {
         setCorrectAnwers(correctAnswers + 1);
         setQuesionsCounter(questionsCounter + 1);
       }
       if (
-        event.target.innerHTML !== questions[questionsCounter].correct_answer
+        event.target.innerText !== questions[questionsCounter].correct_answer
       ) {
         setSwrongAnswers(wrongAnswers + 1);
         setQuesionsCounter(questionsCounter + 1);
       }
-      if (questions.length <= questionsCounter) {
+      // console.log(questions.length);
+      // console.log(questionsCounter);
+      if (questions.length - 1 === questionsCounter) {
+        // console.log('hasNext');
+        setQuesionsCounter(questionsCounter - 1);
+
         return setHasNext(false);
       }
+      // handlePlayerRating();
       // setIsLoading(false);
       return setHasNext(true);
     },
@@ -129,6 +175,9 @@ export const PlayerProvider: React.FC = ({ children }) => {
         questionsCounter,
         correctAnswers,
         wrongAnswers,
+        handleGameHistory,
+        gameHistory,
+        playerRating,
       }}
     >
       {children}

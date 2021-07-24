@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, ChangeEvent } from 'react';
+import { GameHistory } from '../../core/hooks/usePlayer';
 
 import { Action } from '../../types/actions';
 
@@ -82,4 +83,7 @@ export interface GamePlayerContextData {
   questionsCounter: number;
   correctAnswers: number;
   wrongAnswers: number;
+  handleGameHistory: (event: any) => void;
+  gameHistory: GameHistory[];
+  playerRating: number;
 }

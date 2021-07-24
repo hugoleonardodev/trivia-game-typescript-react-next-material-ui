@@ -6,7 +6,8 @@ import { light, dark } from '../styles/themes/muiThemes';
 import { OptionsProvider } from '../core/hooks/useOptions';
 import { JssStyles } from '../types/app';
 import { PlayerProvider } from '../core/hooks/usePlayer';
-import { GlobalCss } from '../styles/global';
+import { GlobalCss } from '../styles/library';
+import { setLocalStorage } from '../services';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [theme, setTheme] = useState(light);
@@ -31,6 +32,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     if (jssStyles) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
+  }, []);
+
+  useEffect(() => {
+    setLocalStorage();
   }, []);
 
   return (

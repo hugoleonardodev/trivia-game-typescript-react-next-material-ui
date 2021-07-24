@@ -1,7 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-import { useStyles } from '../../styles/library';
+import { useStyles } from '../../styles/global';
 // import { marks } from '../../common/constants';
 
 // function valuetext(value: number) {

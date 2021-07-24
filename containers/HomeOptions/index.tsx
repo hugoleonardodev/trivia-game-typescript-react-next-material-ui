@@ -8,14 +8,14 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { useStyles } from '../../styles/library';
+import { useStyles } from '../../styles/global';
 import { useOptions } from '../../core/hooks';
-import Player from '../Player';
+import Player from '../HomePlayer';
 import SliderOptions from '../../components/SliderOptions';
 import ButtonSwitch from '../../components/ButtonSwitch';
+import { MaterialIcons } from '../../styles/library';
 
 import { marks } from '../../common/constants';
-import { MaterialIcons } from '../../styles/global';
 
 function convertValueToText(value: number) {
   return `${value}°C`;
@@ -31,7 +31,7 @@ interface Props {
   window?: () => Window;
 }
 
-const Options: React.FC<Props> = (props) => {
+const HomeOptions: React.FC<Props> = (props) => {
   const {
     amountOfQuestions,
     difficultyLevel,
@@ -104,7 +104,7 @@ const Options: React.FC<Props> = (props) => {
             onClick={handleDrawerToggle}
             className={styles.menuButton}
           >
-            {/* <MenuIcon /> */}
+            <MaterialIcons>menu</MaterialIcons>
           </IconButton>
           <Typography className={styles.logo} variant="h6" noWrap>
             <MaterialIcons>psychology</MaterialIcons>
@@ -148,4 +148,4 @@ const Options: React.FC<Props> = (props) => {
   );
 };
 
-export default Options;
+export default HomeOptions;

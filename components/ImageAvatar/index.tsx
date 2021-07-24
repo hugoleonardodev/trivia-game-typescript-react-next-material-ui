@@ -1,6 +1,6 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import { useStyles } from '../../styles/library';
+import { useStyles } from '../../styles/global';
 
 interface ImageAvatarProps {
   gitHubUserName: string;
