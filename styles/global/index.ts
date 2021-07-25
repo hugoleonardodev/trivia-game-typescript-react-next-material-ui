@@ -12,7 +12,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       flexWrap: 'wrap',
       boxSizing: 'border-box',
-      backgroundColor: theme.palette.info.main,
+      // backgroundColor: theme.palette.info.main,
     },
     withoutLabel: {
       marginTop: theme.spacing(3),
@@ -40,9 +40,20 @@ export const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: theme.palette.primary.light,
       },
     },
+    buttonListMobile: {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.primary.contrastText,
+      width: '-webkit-fill-available',
+      // margin: theme.spacing(2),
+      padding: 0,
+      textTransform: 'capitalize',
+      '&:hover': {
+        backgroundColor: theme.palette.primary.light,
+      },
+    },
     formControl: {
       color: theme.palette.primary.contrastText,
-      backgroundColor: theme.palette.info.light,
+      // backgroundColor: theme.palette.info.light,
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -223,9 +234,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       marginTop: '16px',
     },
     displayFooterInGame: {
-      marginTop: '60vh',
+      marginTop: '45vh',
       display: 'flex',
       alignItems: 'center',
+      position: 'absolute',
+      height: '-webkit-fill-available',
     },
     playerName: {
       display: 'flex',
@@ -241,6 +254,12 @@ export const useStyles = makeStyles((theme: Theme) =>
     playerOptions: {
       [theme.breakpoints.down('xs')]: {
         display: 'none',
+      },
+    },
+    homeAppBarToolbar: {
+      justifyContent: 'flex-end',
+      [theme.breakpoints.down('xs')]: {
+        justifyContent: 'space-between',
       },
     },
   })

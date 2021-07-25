@@ -18,7 +18,7 @@ const HomePlayer: React.FC<PlayerProps> = () => {
     usePlayer();
 
   return (
-    <FormControl className={styles.formControl}>
+    <FormControl className={styles.formControl} component="form">
       <InputText
         label="Player Name"
         handlePlayer={handlePlayer}

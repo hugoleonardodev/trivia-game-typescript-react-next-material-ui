@@ -44,9 +44,9 @@ export const dialogs = {
   home: {
     label: 'play-game',
     title: 'Are you sure to start this nightmare ?',
-    content: `Once you have started the game, you will have only 30 seconds to answer each question.
-      So do not try to Google it. Try to answer as quick as possible. Since the elapsed time counts
-      in your final score.`,
+    content: `There is no timer in this game. So you will have time to search or even Google it.
+      Feel free to check you answers and dive deep in the "sea of knowledge".
+    `,
   },
 };
 

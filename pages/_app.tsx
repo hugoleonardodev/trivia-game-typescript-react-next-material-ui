@@ -1,25 +1,49 @@
 import React from 'react';
 import { AppProps } from 'next/app';
+import { useRouter } from 'next/dist/client/router';
 import { ThemeProvider } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import NProgress from 'nprogress';
 import { light, dark } from '../styles/themes/muiThemes';
 import { JssStyles } from '../types/app';
 import { OptionsProvider } from '../core/hooks/useOptions';
 import { PlayerProvider } from '../core/hooks/usePlayer';
 import { GlobalCss } from '../styles/library';
-import { setLocalStorage } from '../services';
 import DisplayFooter from '../components/DisplayFooter';
 import { getRouteTruthy } from '../common/helpers';
 
+import '../public/nprogress.css';
+
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
+  const Router = useRouter();
+
   const [theme, setTheme] = React.useState(light);
 
   const [switchTheme, setSwitchTheme] = React.useState(false);
 
   const isHome = React.useMemo(
-    () => getRouteTruthy(router.pathname, '/'),
-    ['/']
+    () => getRouteTruthy(Router.pathname, '/'),
+    [Router]
   );
+
+  React.useEffect(() => {
+    const handleStart = () => {
+      NProgress.start();
+    };
+    const handleStop = () => {
+      NProgress.done();
+    };
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleStop);
+    router.events.on('routeChangeError', handleStop);
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleStop);
+      router.events.off('routeChangeError', handleStop);
+    };
+  }, [router]);
 
   const handleSetTheme = React.useCallback(
     (isChecked: boolean) => {
@@ -40,10 +64,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     if (jssStyles) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
-  }, []);
-
-  React.useEffect(() => {
-    setLocalStorage();
   }, []);
 
   return (

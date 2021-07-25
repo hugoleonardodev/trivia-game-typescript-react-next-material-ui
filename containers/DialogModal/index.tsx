@@ -15,6 +15,9 @@ import { getRouteTruthy, randomDirections } from '../../common/helpers';
 import MarkdownParser from '../../components/MarkdownParser';
 import { useStyles } from '../../styles/global';
 import { useMemo } from 'react';
+import { useState } from 'react';
+import { useWindowSize } from '../../core/hooks/useWindowSize';
+import { List, ListItem } from '@material-ui/core';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -36,6 +39,12 @@ const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
 
   const { questions, handleGameStartOptions, isLoading } = useOptions();
 
+  const [currentAnswers, setCurrentAnswers] = useState<(string | boolean)[]>(
+    []
+  );
+
+  const [width] = useWindowSize();
+
   const styles = useStyles();
 
   const router = useRouter();
@@ -46,6 +55,21 @@ const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
     () => getRouteTruthy(router.pathname, '/ingame'),
     [router]
   );
+
+  const isMobile = width < 768;
+
+  const question = questions[questionsCounter];
+
+  const getAllQuestionsAnswers = (
+    correctAnswer: string,
+    wrongAnswers: string[] | boolean[]
+  ) => {
+    const newArrayFromQuestions = [...wrongAnswers, correctAnswer];
+
+    const sortedAnswersArray = newArrayFromQuestions.sort();
+
+    return sortedAnswersArray;
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -74,6 +98,18 @@ const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
     return () => clearTimeout(timer);
   }, [handleClickAnswer, questionsCounter]);
 
+  React.useEffect(() => {
+    if (!isHome && questions.length > 0) {
+      const correctAnswer = question.correct_answer.toString();
+      const wrongAnswers = question.incorrect_answers;
+      const newArrayOfAnswers = getAllQuestionsAnswers(
+        correctAnswer,
+        wrongAnswers
+      );
+      setCurrentAnswers(newArrayOfAnswers);
+    }
+  }, [questions, handleAnswer]);
+
   if (isLoading) {
     return <div>loading</div>;
   }
@@ -93,8 +129,6 @@ const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
       </Dialog>
     );
   }
-
-  const question = questions[questionsCounter];
 
   return (
     <div>
@@ -118,16 +152,8 @@ const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          {isHome ? (
+          {isHome && (
             <ButtonOutlined handleClick={handleClose}>Cancel</ButtonOutlined>
-          ) : (
-            <ButtonOutlined handleClick={handleClickAnswer}>
-              {typeof question.correct_answer === 'string' ? (
-                <MarkdownParser markdown={question.correct_answer} />
-              ) : (
-                question.correct_answer
-              )}
-            </ButtonOutlined>
           )}
 
           {isHome ? (
@@ -135,17 +161,45 @@ const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
               Start
               <Link href="/ingame">Start</Link>
             </ButtonOutlined>
+          ) : isMobile ? (
+            <List
+              style={{
+                justifyContent: 'center',
+                width: '-webkit-fill-available',
+              }}
+            >
+              {currentAnswers.map((answer, index) => (
+                <ListItem
+                  key={`answer-${index}`}
+                  style={{ width: '-webkit-fill-available' }}
+                >
+                  <ButtonOutlined
+                    handleClick={handleClickAnswer}
+                    hasValue={answer.toString()}
+                    isList
+                  >
+                    {typeof answer === 'string' ? (
+                      <MarkdownParser markdown={answer} />
+                    ) : (
+                      answer
+                    )}
+                  </ButtonOutlined>
+                </ListItem>
+              ))}
+            </List>
           ) : (
-            question.incorrect_answers.map((answer, index) => (
-              <React.Fragment key={`answer-${index}`}>
-                <ButtonOutlined handleClick={handleClickAnswer}>
-                  {typeof answer === 'string' ? (
-                    <MarkdownParser markdown={answer} />
-                  ) : (
-                    answer
-                  )}
-                </ButtonOutlined>
-              </React.Fragment>
+            currentAnswers.map((answer, index) => (
+              <ButtonOutlined
+                handleClick={handleClickAnswer}
+                hasValue={answer.toString()}
+                key={`answer-${index}`}
+              >
+                {typeof answer === 'string' ? (
+                  <MarkdownParser markdown={answer} />
+                ) : (
+                  answer
+                )}
+              </ButtonOutlined>
             ))
           )}
         </DialogActions>

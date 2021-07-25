@@ -7,7 +7,7 @@ import {
   cyan,
   yellow,
   blueGrey,
-  indigo,
+  blue,
 } from '@material-ui/core/colors';
 
 // LIGHT THEME
@@ -45,7 +45,7 @@ const darkTheme = createTheme({
       main: deepPurple[500],
     },
     secondary: {
-      main: indigo[500],
+      main: blue[500],
     },
     error: {
       main: red[500],

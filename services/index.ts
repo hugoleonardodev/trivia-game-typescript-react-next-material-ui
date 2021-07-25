@@ -24,7 +24,7 @@ interface PlayerRanking {
   playerAvatar: string;
   playerRating: number;
 }
-interface TriviaGameStorage {
+export interface TriviaGameStorage {
   playerName: string;
   playerAvatar: string;
   gameHistory: GameHistory[];
@@ -64,7 +64,34 @@ export const uptadePlayerGameHistory = (
 export const updatePlayersRanking = (newPlayerRank: PlayerRanking): void => {
   const storage = getLocalStorage('triviaGame');
 
+  const isRanked = findPlayerRank(newPlayerRank.playerName);
+
+  if (isRanked && newPlayerRank.playerRating > isRanked.playerRating) {
+    const playerRankIndex = storage.ranking.indexOf(isRanked);
+
+    const updatedRank = [
+      ...storage.ranking.slice(0, playerRankIndex),
+      newPlayerRank,
+      ...storage.ranking.slice(playerRankIndex + 1),
+    ];
+
+    storage.ranking = updatedRank;
+
+    return localStorage.setItem('triviaGame', JSON.stringify(storage));
+  }
   storage.ranking = [...storage.ranking, newPlayerRank];
 
   return localStorage.setItem('triviaGame', JSON.stringify(storage));
+};
+
+export const findPlayerRank = (
+  givenPlayerName: string
+): PlayerRanking | undefined => {
+  const store = getLocalStorage('triviaGame');
+
+  const isRanked = store.ranking.find(
+    (player) => player.playerName === givenPlayerName
+  );
+
+  return isRanked;
 };

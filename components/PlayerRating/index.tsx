@@ -35,9 +35,10 @@ const CircularStatic: React.FC<CircularProgressProps & { value: number }> = (
         <Typography
           variant="caption"
           component="div"
-          color="textSecondary"
           style={{ fontSize: '1.75rem' }}
-        >{`${Math.round(props.value)}%`}</Typography>
+        >
+          {`${Math.round(props.value)}%`}
+        </Typography>
       </Box>
     </Box>
   );
@@ -53,7 +54,7 @@ const PlayerRating: React.FC<PlayerRatingProps> = ({ rating }) => {
     const timer = setInterval(() => {
       setProgress((prevProgress) =>
         // prevProgress <= rating ? 0 : prevProgress + 10
-        prevProgress + 10 >= rating ? rating : prevProgress + 10
+        prevProgress + 10 >= rating ? rating + 10 : prevProgress + 10
       );
     }, 800);
     if (progress === rating) {

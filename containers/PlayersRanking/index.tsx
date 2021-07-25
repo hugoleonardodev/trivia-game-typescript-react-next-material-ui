@@ -9,12 +9,20 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { MaterialIcons } from '../../styles/library';
 import { useStyles } from '../../styles/global';
-import { getLocalStorage } from '../../services';
+import { getLocalStorage, TriviaGameStorage } from '../../services';
+import { triviaGameLocalStorage } from '../../common/constants';
 
 const PlayersRanking: React.FC = () => {
   const styles = useStyles();
 
-  const storage = getLocalStorage('triviaGame');
+  const [gameStorage, setGameStorage] = React.useState<TriviaGameStorage>(
+    triviaGameLocalStorage
+  );
+
+  React.useEffect(() => {
+    const storage = getLocalStorage('triviaGame');
+    setGameStorage(storage);
+  }, []);
 
   return (
     <>
@@ -26,34 +34,36 @@ const PlayersRanking: React.FC = () => {
       </AppBar>
 
       <div className={styles.accordion}>
-        {storage.ranking.map((player, index) => (
-          <Accordion key={player.playerName}>
-            <AccordionSummary
-              expandIcon={<MaterialIcons>expand_more</MaterialIcons>}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography className={styles.accordionHeading}>
-                {`${index + 1} - ${player.playerName}`}
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Avatar src={player.playerAvatar} />
-              <div className={styles.chipsDashboard}>
-                <Chip
-                  icon={<MaterialIcons>done_outline</MaterialIcons>}
-                  label={`${player.playerRating}`}
-                  color="primary"
-                />
-                <Chip
-                  icon={<MaterialIcons>done_outline</MaterialIcons>}
-                  label={`Difficulty = Hard`}
-                  color="secondary"
-                />
-              </div>
-            </AccordionDetails>
-          </Accordion>
-        ))}
+        {gameStorage.ranking
+          .sort((a, b) => b.playerRating - a.playerRating)
+          .map((player, index) => (
+            <Accordion key={player.playerName}>
+              <AccordionSummary
+                expandIcon={<MaterialIcons>expand_more</MaterialIcons>}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography className={styles.accordionHeading}>
+                  {`${index + 1} - ${player.playerName}`}
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Avatar src={player.playerAvatar} />
+                <div className={styles.chipsDashboard}>
+                  <Chip
+                    icon={<MaterialIcons>done_outline</MaterialIcons>}
+                    label={`${player.playerRating}`}
+                    color="primary"
+                  />
+                  <Chip
+                    icon={<MaterialIcons>done_outline</MaterialIcons>}
+                    label={`Difficulty = Hard`}
+                    color="secondary"
+                  />
+                </div>
+              </AccordionDetails>
+            </Accordion>
+          ))}
       </div>
     </>
   );

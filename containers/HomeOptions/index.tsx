@@ -16,14 +16,10 @@ import ButtonSwitch from '../../components/ButtonSwitch';
 import { MaterialIcons } from '../../styles/library';
 
 import { marks } from '../../common/constants';
-import { useRouter } from 'next/dist/client/router';
-import { getRouteTruthy } from '../../common/helpers';
 
 function convertValueToText(value: number) {
   return `${value}°C`;
 }
-
-// const drawerWidth = 240;
 
 interface Props {
   /**
@@ -46,11 +42,7 @@ const HomeOptions: React.FC<Props> = (props) => {
 
   const styles = useStyles();
 
-  const router = useRouter();
-
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  const isHome = React.useMemo(() => getRouteTruthy(router.pathname, '/'), []);
 
   const handleDrawerToggle = React.useCallback(() => {
     setMobileOpen(!mobileOpen);
@@ -103,9 +95,7 @@ const HomeOptions: React.FC<Props> = (props) => {
   return (
     <div className={styles.root}>
       <AppBar position="fixed">
-        <Toolbar
-          style={{ justifyContent: isHome ? 'flex-end' : 'space-between' }}
-        >
+        <Toolbar className={styles.homeAppBarToolbar}>
           <IconButton
             color="inherit"
             aria-label="open drawer"

@@ -13,9 +13,10 @@ import {
   TimelineOppositeContentRight,
 } from '../../styles/library';
 import { useStyles } from '../../styles/global';
-import { getLocalStorage } from '../../services';
+import { getLocalStorage, TriviaGameStorage } from '../../services';
 import DisplayHeader from '../../components/DisplayHeader';
 import MarkdownParser from '../../components/MarkdownParser';
+import { triviaGameLocalStorage } from '../../common/constants';
 
 const correct = '#8bc34a';
 const wrong = '#f44336';
@@ -23,13 +24,20 @@ const wrong = '#f44336';
 const PlayerTimeLine: React.FC = () => {
   const styles = useStyles();
 
-  const storage = getLocalStorage('triviaGame');
+  const [gameStorage, setGameStorage] = React.useState<TriviaGameStorage>(
+    triviaGameLocalStorage
+  );
+
+  React.useEffect(() => {
+    const storage = getLocalStorage('triviaGame');
+    setGameStorage(storage);
+  }, []);
 
   return (
     <>
       <DisplayHeader />
       <Timeline align="alternate">
-        {storage.gameHistory.map((question, index) => (
+        {gameStorage.gameHistory.map((question, index) => (
           <TimelineItem key={`${index}-${question}`}>
             {index % 2 === 0 ? (
               <TimelineOppositeContentLeft>

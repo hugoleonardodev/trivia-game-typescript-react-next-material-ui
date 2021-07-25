@@ -7,10 +7,8 @@ interface MarkdownParserProps {
 
 const MarkdownParser: React.FC<MarkdownParserProps> = ({ markdown }) => {
   return (
-    <ReactMarkdown allowedElements={['p']}>
-      {typeof markdown === 'string'
-        ? markdown.replace('<p>', '').replace('</p>', '')
-        : JSON.stringify(markdown)}
+    <ReactMarkdown>
+      {typeof markdown === 'string' ? markdown : JSON.stringify(markdown)}
     </ReactMarkdown>
   );
 };

@@ -4,19 +4,41 @@ import { useStyles } from '../../styles/global';
 
 interface ButtonOutlinedProps {
   children?: React.ReactNode;
-  handleClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  handleClick: (e: any) => void;
+  hasValue?: string;
+  isList?: boolean;
 }
 
 const ButtonOutlined: React.FC<ButtonOutlinedProps> = ({
   children,
   handleClick,
+  hasValue,
+  isList,
 }) => {
   const styles = useStyles();
 
   return (
-    <Button className={styles.button} variant="outlined" onClick={handleClick}>
-      {children}
-    </Button>
+    <>
+      {isList ? (
+        <Button
+          className={styles.buttonListMobile}
+          variant="outlined"
+          onClick={(e) => handleClick(e)}
+          value={hasValue}
+        >
+          {children}
+        </Button>
+      ) : (
+        <Button
+          className={styles.button}
+          variant="outlined"
+          onClick={(e) => handleClick(e)}
+          value={hasValue}
+        >
+          {children}
+        </Button>
+      )}
+    </>
   );
 };
 

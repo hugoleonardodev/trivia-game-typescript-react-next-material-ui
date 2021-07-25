@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useCallback } from 'react';
+import MarkdownParser from '../../components/MarkdownParser';
 
 import { updatePlayersRanking, uptadePlayerGameHistory } from '../../services';
 
@@ -49,7 +50,7 @@ export const PlayerProvider: React.FC = ({ children }) => {
   const handleGameRanking = useCallback(
     (event: any) => {
       event.preventDefault();
-      const gitHubAvatar = `https://github.com/hugoleonardodev${gitHubUserName}.png`;
+      const gitHubAvatar = `https://github.com/${gitHubUserName}.png`;
       const newPlayerRank = {
         playerName: player,
         playerAvatar: gitHubAvatar,
@@ -81,18 +82,19 @@ export const PlayerProvider: React.FC = ({ children }) => {
       event.preventDefault();
       handleGameHistory(event);
       handlePlayerRating();
+      const answerComponent = (
+        <MarkdownParser markdown={questions[questionsCounter].correct_answer} />
+      );
       if (
-        questions[questionsCounter].correct_answer
-          .toString()
-          .includes(event.target.innerText)
+        event.currentTarget.value.toLowerCase() ===
+        answerComponent.props.markdown.toLowerCase()
       ) {
         setCorrectAnwers(correctAnswers + 1);
         setQuesionsCounter(questionsCounter + 1);
       }
       if (
-        !questions[questionsCounter].correct_answer
-          .toString()
-          .includes(event.target.innerText)
+        event.currentTarget.value.toLowerCase() !==
+        answerComponent.props.markdown.toLowerCase()
       ) {
         setSwrongAnswers(wrongAnswers + 1);
         setQuesionsCounter(questionsCounter + 1);
@@ -104,6 +106,8 @@ export const PlayerProvider: React.FC = ({ children }) => {
       return setHasNext(true);
     },
     [
+      handleGameHistory,
+      handlePlayerRating,
       setCorrectAnwers,
       setSwrongAnswers,
       setQuesionsCounter,
