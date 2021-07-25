@@ -1,4 +1,12 @@
+/**
+ * @baseUrl : opentdb api base url for queries
+ */
+
 export const baseUrl = 'https://opentdb.com/api.php?';
+
+/**
+ * @difficulty : array of marks for difficulty level
+ */
 
 const difficulty = [
   {
@@ -19,6 +27,10 @@ const difficulty = [
   },
 ];
 
+/**
+ * @amount : array of marks for amount of questions
+ */
+
 const amount = [
   {
     value: 1,
@@ -38,7 +50,15 @@ const amount = [
   },
 ];
 
+/**
+ * @marks : marks for options sliders
+ */
+
 export const marks = { difficulty, amount };
+
+/**
+ * @marks : in game dialogs by routes
+ */
 
 export const dialogs = {
   home: {
@@ -49,6 +69,10 @@ export const dialogs = {
     `,
   },
 };
+
+/**
+ * @ranking : trivia game players ranking
+ */
 
 export const ranking = [
   {
@@ -111,9 +135,26 @@ export const ranking = [
   },
 ];
 
+/**
+ * @triviaGameLocalStorage : trivia game localStorage object
+ */
+
 export const triviaGameLocalStorage = {
   playerName: '',
   playerAvatar: '',
   gameHistory: [],
   ranking: ranking,
+};
+
+const correct = '#8bc34a';
+const wrong = '#f44336';
+
+/**
+ * @correct : mui color green for success
+ * @wrong :  mui color red for error
+ */
+
+export const muiThemeColors = {
+  correct,
+  wrong,
 };

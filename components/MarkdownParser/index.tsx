@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-
-interface MarkdownParserProps {
-  markdown: string | boolean;
-}
+import { MarkdownParserProps } from '../../types/components';
 
 const MarkdownParser: React.FC<MarkdownParserProps> = ({ markdown }) => {
   return (

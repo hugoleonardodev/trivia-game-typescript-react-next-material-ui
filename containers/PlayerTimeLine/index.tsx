@@ -16,10 +16,7 @@ import { useStyles } from '../../styles/global';
 import { getLocalStorage, TriviaGameStorage } from '../../services';
 import DisplayHeader from '../../components/DisplayHeader';
 import MarkdownParser from '../../components/MarkdownParser';
-import { triviaGameLocalStorage } from '../../common/constants';
-
-const correct = '#8bc34a';
-const wrong = '#f44336';
+import { muiThemeColors, triviaGameLocalStorage } from '../../common/constants';
 
 const PlayerTimeLine: React.FC = () => {
   const styles = useStyles();
@@ -62,7 +59,9 @@ const PlayerTimeLine: React.FC = () => {
             <TimelineSeparator>
               <TimelineConnector
                 style={{
-                  backgroundColor: question.isCorrect ? correct : wrong,
+                  backgroundColor: question.isCorrect
+                    ? muiThemeColors.correct
+                    : muiThemeColors.wrong,
                 }}
               />
               <TimelineDot

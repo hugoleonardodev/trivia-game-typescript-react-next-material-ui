@@ -5,15 +5,12 @@ import { usePlayer } from '../../core/hooks/usePlayer';
 import { useStyles } from '../../styles/global';
 import ScrollTop from '../../components/ScrollToTop';
 import PlayersRanking from '../../containers/PlayersRanking';
-import { useRouter } from 'next/dist/client/router';
 
 const Rankings: React.FC = (props) => {
   const styles = useStyles();
-  const router = useRouter();
+
   const { handleClearAll } = usePlayer();
-  if (router.isFallback) {
-    return <div>loading...</div>;
-  }
+
   return (
     <>
       <div id="back-to-top-anchor" />

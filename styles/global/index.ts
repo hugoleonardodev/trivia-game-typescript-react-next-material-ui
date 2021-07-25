@@ -12,7 +12,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       flexWrap: 'wrap',
       boxSizing: 'border-box',
-      // backgroundColor: theme.palette.info.main,
     },
     withoutLabel: {
       marginTop: theme.spacing(3),
@@ -121,9 +120,6 @@ export const useStyles = makeStyles((theme: Theme) =>
       '& > *': {
         margin: theme.spacing(1),
       },
-      // [theme.breakpoints.down('sm')]: {
-      //   display: 'none',
-      // },
     },
     list: {
       [theme.breakpoints.down('xs')]: {
@@ -261,6 +257,23 @@ export const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down('xs')]: {
         justifyContent: 'space-between',
       },
+    },
+    inGameCircularProgress: {
+      display: 'flex',
+      '& > * + *': {
+        marginLeft: theme.spacing(2),
+      },
+    },
+    inGameLoading: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignIitems: 'center',
+      transform: 'translateY(25vh)',
+    },
+    scrollToTop: {
+      position: 'fixed',
+      bottom: theme.spacing(2),
+      right: theme.spacing(2),
     },
   })
 );

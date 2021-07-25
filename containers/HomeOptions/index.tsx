@@ -14,22 +14,15 @@ import Player from '../HomePlayer';
 import SliderOptions from '../../components/SliderOptions';
 import ButtonSwitch from '../../components/ButtonSwitch';
 import { MaterialIcons } from '../../styles/library';
+import { HomeOptionsProps } from '../../types/containers';
 
 import { marks } from '../../common/constants';
 
 function convertValueToText(value: number) {
-  return `${value}°C`;
+  return `${value}`;
 }
 
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
-}
-
-const HomeOptions: React.FC<Props> = (props) => {
+const HomeOptions: React.FC<HomeOptionsProps> = (props) => {
   const { window } = props;
 
   const {

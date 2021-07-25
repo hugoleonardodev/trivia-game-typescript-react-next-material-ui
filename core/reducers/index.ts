@@ -1,11 +1,11 @@
 import { GenerericReducer } from '../actions';
-import { Action } from '../../types/actions';
-import { GameOptionsContextData } from '../../types/hooks';
+import { Action } from '../../types/core/actions';
+import { GameOptionsContextData } from '../../types/core/hooks';
 
-export function genericReducer(
+export const genericReducer = (
   state: GameOptionsContextData,
   action: Action
-): any {
+): any => {
   switch (action.type) {
     case GenerericReducer.UPDATE_ALL:
       return action.payload;
@@ -14,4 +14,4 @@ export function genericReducer(
     default:
       return state;
   }
-}
+};

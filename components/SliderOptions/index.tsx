@@ -2,29 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import { useStyles } from '../../styles/global';
-// import { marks } from '../../common/constants';
-
-// function valuetext(value: number) {
-//   return `${value}°C`;
-// }
-
-interface Marks {
-  value: number;
-  label: string;
-}
-
-interface SliderOptionsProps {
-  id: string;
-  title: string;
-  valueText: (value: number, index: number) => string;
-  value: number;
-  step: number;
-  stepMarks: Marks[];
-  handleAmount: (
-    event: React.ChangeEvent<HTMLInputElement>,
-    value: number
-  ) => void;
-}
+import { SliderOptionsProps } from '../../types/components';
 
 const SliderOptions: React.FC<SliderOptionsProps> = ({
   id,

@@ -1,3 +1,3 @@
-import { GenerericReducer } from '../../types/actions';
+import { GenerericReducer } from '../../types/core/actions';
 
 export { GenerericReducer };

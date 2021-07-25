@@ -1,53 +1,45 @@
-import React, { createContext, useState, useContext, useCallback } from 'react';
+import React from 'react';
 import MarkdownParser from '../../components/MarkdownParser';
 
 import { updatePlayersRanking, uptadePlayerGameHistory } from '../../services';
 
-import { GamePlayerContextData } from '../../types/hooks';
-
-import { Question } from '../../types/reducers';
+import { GameHistory, GamePlayerContextData } from '../../types/core/hooks';
 
 import { useOptions } from './useOptions';
 
-export interface GameHistory {
-  currentQuestion: Question;
-  playerAnswer: string;
-  isCorrect: boolean;
-}
-
-export const PlayerContext = createContext<GamePlayerContextData>(
+export const PlayerContext = React.createContext<GamePlayerContextData>(
   {} as GamePlayerContextData
 );
 
 export const PlayerProvider: React.FC = ({ children }) => {
   const { questions, handleClearOptions } = useOptions();
 
-  const [questionsCounter, setQuesionsCounter] = useState(0);
+  const [questionsCounter, setQuesionsCounter] = React.useState(0);
 
-  const [correctAnswers, setCorrectAnwers] = useState(0);
+  const [correctAnswers, setCorrectAnwers] = React.useState(0);
 
-  const [wrongAnswers, setSwrongAnswers] = useState(0);
+  const [wrongAnswers, setSwrongAnswers] = React.useState(0);
 
-  const [player, setPlayer] = useState('');
+  const [player, setPlayer] = React.useState('');
 
-  const [gitHubUserName, setGitHubUserName] = useState('');
+  const [gitHubUserName, setGitHubUserName] = React.useState('');
 
-  const [playerScore, setPlayerScore] = useState(0);
+  const [playerScore, setPlayerScore] = React.useState(0);
 
-  const [hasNext, setHasNext] = useState(true);
+  const [hasNext, setHasNext] = React.useState(true);
 
-  const [playerTimer, setPlayerTimer] = useState(30);
+  const [playerTimer, setPlayerTimer] = React.useState(30);
 
-  const [gameHistory, setGameHistory] = useState<GameHistory[]>([]);
+  const [gameHistory, setGameHistory] = React.useState<GameHistory[]>([]);
 
-  const [playerRating, setPlayerRating] = useState(0);
+  const [playerRating, setPlayerRating] = React.useState(0);
 
-  const handlePlayerRating = useCallback(() => {
+  const handlePlayerRating = React.useCallback(() => {
     const rating = correctAnswers === 0 ? 0 : correctAnswers / questions.length;
     setPlayerRating(rating * 100);
   }, [correctAnswers, questions, setPlayerRating]);
 
-  const handleGameRanking = useCallback(
+  const handleGameRanking = React.useCallback(
     (event: any) => {
       event.preventDefault();
       const gitHubAvatar = `https://github.com/${gitHubUserName}.png`;
@@ -61,7 +53,7 @@ export const PlayerProvider: React.FC = ({ children }) => {
     [player, gitHubUserName, playerRating, updatePlayersRanking]
   );
 
-  const handleGameHistory = useCallback(
+  const handleGameHistory = React.useCallback(
     (event: any) => {
       const currentQuestion = questions[questionsCounter];
       const playerAnswer = event.target.innerText;
@@ -77,7 +69,7 @@ export const PlayerProvider: React.FC = ({ children }) => {
     [questions, questionsCounter, setGameHistory, gameHistory]
   );
 
-  const handleAnswer = useCallback(
+  const handleAnswer = React.useCallback(
     (event: any) => {
       event.preventDefault();
       handleGameHistory(event);
@@ -117,21 +109,21 @@ export const PlayerProvider: React.FC = ({ children }) => {
     ]
   );
 
-  const handlePlayer = useCallback(
+  const handlePlayer = React.useCallback(
     (event: any) => {
       setPlayer(event.target.value);
     },
     [setPlayer]
   );
 
-  const handleGitHubUserName = useCallback(
+  const handleGitHubUserName = React.useCallback(
     (event: any) => {
       setGitHubUserName(event.target.value);
     },
     [setGitHubUserName]
   );
 
-  const handleClearAll = useCallback(() => {
+  const handleClearAll = React.useCallback(() => {
     handleClearOptions();
     setQuesionsCounter(0);
     setCorrectAnwers(0);
@@ -185,12 +177,12 @@ export const PlayerProvider: React.FC = ({ children }) => {
   );
 };
 
-export function usePlayer(): GamePlayerContextData {
-  const context = useContext(PlayerContext);
+export const usePlayer = (): GamePlayerContextData => {
+  const context = React.useContext(PlayerContext);
 
   if (!context) {
     throw new Error('usePlayer must be used within an PlayerProvider');
   }
 
   return context;
-}
+};

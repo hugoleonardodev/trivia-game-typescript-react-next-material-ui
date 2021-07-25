@@ -1,33 +1,14 @@
 import React from 'react';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Zoom from '@material-ui/core/Zoom';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { useStyles } from '../../styles/global';
+import { ScrollToTopProps } from '../../types/components';
 
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
-  children: React.ReactElement;
-}
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      position: 'fixed',
-      bottom: theme.spacing(2),
-      right: theme.spacing(2),
-    },
-  })
-);
-
-const ScrollTop: React.FC = (props: Props) => {
+const ScrollTop: React.FC = (props: ScrollToTopProps) => {
   const { children, window } = props;
+
   const classes = useStyles();
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
+
   const trigger = useScrollTrigger({
     target: window ? window() : undefined,
     disableHysteresis: true,
@@ -47,7 +28,11 @@ const ScrollTop: React.FC = (props: Props) => {
   return (
     <React.Fragment>
       <Zoom in={trigger}>
-        <div onClick={handleClick} role="presentation" className={classes.root}>
+        <div
+          onClick={handleClick}
+          role="presentation"
+          className={classes.scrollToTop}
+        >
           {children}
         </div>
       </Zoom>

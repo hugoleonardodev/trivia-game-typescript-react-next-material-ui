@@ -5,16 +5,11 @@ import PlayerTimeLine from '../../containers/PlayerTimeLine';
 import ScrollTop from '../../components/ScrollToTop';
 import { useStyles } from '../../styles/global';
 import { usePlayer } from '../../core/hooks/usePlayer';
-import { useRouter } from 'next/dist/client/router';
 
 const DashBoard: React.FC = (props) => {
   const styles = useStyles();
-  const router = useRouter();
-  const { handleGameRanking } = usePlayer();
 
-  if (router.isFallback) {
-    return <div>loading...</div>;
-  }
+  const { handleGameRanking } = usePlayer();
 
   return (
     <>

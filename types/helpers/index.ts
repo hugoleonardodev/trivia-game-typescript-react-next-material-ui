@@ -12,3 +12,21 @@ export interface UrlOptions {
   difficulty?: 'easy' | 'medium' | 'hard';
   type?: 'multiple' | 'boolean';
 }
+
+/**
+ * Directions for Dialog Modals
+ * @directions : 'up' | 'down' | 'left' | 'right'
+ */
+export interface Directions {
+  directions?: 'up' | 'down' | 'left' | 'right';
+}
+
+/**
+ * Options set by the player
+ * @amountString : amout of questions set by the player
+ * @difficultyString : a string with difficulty query string
+ */
+export interface Options {
+  amountString: number;
+  difficultyString: string;
+}

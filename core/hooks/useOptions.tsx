@@ -1,11 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useState,
-  useContext,
-  // useEffect,
-  useReducer,
-} from 'react';
+import React from 'react';
 
 import { genericReducer } from '../reducers';
 
@@ -13,35 +6,33 @@ import { getAllQuestions } from '../../services';
 
 import { getOptionsStrings } from '../../common/helpers';
 
-import { GameOptionsContextData } from '../../types/hooks';
+import {
+  GameOptionsContextData,
+  OptionsProviderProps,
+} from '../../types/core/hooks';
 
-export const OptionsContext = createContext<GameOptionsContextData>(
+export const OptionsContext = React.createContext<GameOptionsContextData>(
   {} as GameOptionsContextData
 );
-
-interface OptionsProviderProps {
-  handleSetTheme: (isChecked: boolean) => void;
-  switchTheme: boolean;
-}
 
 export const OptionsProvider: React.FC<OptionsProviderProps> = ({
   children,
   handleSetTheme,
   switchTheme,
 }) => {
-  const [questions, setQuestions] = useReducer(genericReducer, []);
+  const [questions, setQuestions] = React.useReducer(genericReducer, []);
 
-  const [amountOfQuestions, setAmountOfQuestions] = useState(0);
+  const [amountOfQuestions, setAmountOfQuestions] = React.useState(0);
 
-  const [difficultyLevel, setDifficultyLevel] = useState(0);
+  const [difficultyLevel, setDifficultyLevel] = React.useState(0);
 
-  const [questionsCategories, setQuestionsCategories] = useState(9);
+  const [questionsCategories, setQuestionsCategories] = React.useState(9);
 
-  const [error, handleError] = useState(false);
+  const [error, handleError] = React.useState(false);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  const handleQuestions = useCallback(
+  const handleQuestions = React.useCallback(
     async (amount: number, category, difficulty, type) => {
       setIsLoading(true);
       const response = await getAllQuestions(
@@ -59,21 +50,21 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({
     [questions, setIsLoading]
   );
 
-  const handleAmount = useCallback(
+  const handleAmount = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>, value: number) => {
       setAmountOfQuestions(value);
     },
     [setAmountOfQuestions]
   );
 
-  const handleDifficulty = useCallback(
+  const handleDifficulty = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>, value: number) => {
       setDifficultyLevel(value);
     },
     [setDifficultyLevel]
   );
 
-  const handleGameStartOptions = useCallback(async () => {
+  const handleGameStartOptions = React.useCallback(async () => {
     const options = getOptionsStrings(amountOfQuestions, difficultyLevel);
     await handleQuestions(
       options.amountString,
@@ -83,7 +74,7 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({
     );
   }, [getOptionsStrings, amountOfQuestions, difficultyLevel]);
 
-  const handleClearOptions = useCallback(() => {
+  const handleClearOptions = React.useCallback(() => {
     setQuestions({ type: '@questions/CLEAR_ALL', payload: [] });
     setAmountOfQuestions(0);
     setDifficultyLevel(0);
@@ -128,12 +119,12 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({
   );
 };
 
-export function useOptions(): GameOptionsContextData {
-  const context = useContext(OptionsContext);
+export const useOptions = (): GameOptionsContextData => {
+  const context = React.useContext(OptionsContext);
 
   if (!context) {
     throw new Error('useOptions must be used within an OptionsProvider');
   }
 
   return context;
-}
+};

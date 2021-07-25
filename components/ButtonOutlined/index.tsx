@@ -1,13 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { useStyles } from '../../styles/global';
-
-interface ButtonOutlinedProps {
-  children?: React.ReactNode;
-  handleClick: (e: any) => void;
-  hasValue?: string;
-  isList?: boolean;
-}
+import { ButtonOutlinedProps } from '../../types/components';
 
 const ButtonOutlined: React.FC<ButtonOutlinedProps> = ({
   children,

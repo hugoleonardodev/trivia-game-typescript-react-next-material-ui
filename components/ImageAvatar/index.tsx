@@ -1,10 +1,7 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import { useStyles } from '../../styles/global';
-
-interface ImageAvatarProps {
-  gitHubUserName: string;
-}
+import { ImageAvatarProps } from '../../types/components';
 
 const ImageAvatar: React.FC<ImageAvatarProps> = ({ gitHubUserName }) => {
   const styles = useStyles();

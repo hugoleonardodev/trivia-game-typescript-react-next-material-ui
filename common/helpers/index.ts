@@ -1,4 +1,4 @@
-import { UrlOptions } from '../../types/helpers';
+import { Directions, Options, UrlOptions } from '../../types/helpers';
 
 /**
  * @generateUrl : generates a url query from player options
@@ -13,34 +13,6 @@ const generateUrl = (options: UrlOptions): string => {
 
   return urlWithOptions || '';
 };
-
-// const markdownParser = (markdown: string): string => {
-//   const quotes = markdown.split('&quot;');
-
-//   const singles = markdown.split('&#039;');
-
-//   const amps = markdown.split('&amp;');
-
-//   let result = '';
-
-//   if (quotes.length > 0) {
-//     result = markdown.replaceAll('&quot;', '"');
-//   }
-
-//   if (singles.length > 0) {
-//     result = result.replaceAll('&#039;', "'");
-//   }
-
-//   if (amps.length > 0) {
-//     result = result.replaceAll('&amp;', '&');
-//   }
-
-//   return result;
-// };
-
-interface Directions {
-  directions?: 'up' | 'down' | 'left' | 'right';
-}
 
 /**
  * @randomDirections : returns a random direction 'up', 'dowm', 'left', 'right'
@@ -102,11 +74,6 @@ const getDifficultyString = (difficulty: number) => {
 
   return '';
 };
-
-interface Options {
-  amountString: number;
-  difficultyString: string;
-}
 
 /**
  * @getOptionsStrings : strings for difficulty and amout from player options

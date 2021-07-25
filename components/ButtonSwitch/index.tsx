@@ -1,10 +1,7 @@
 import React, { useCallback } from 'react';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
-
-interface ButtonSwitchProps {
-  handleSetTheme: (isChecked: boolean) => void;
-}
+import { ButtonSwitchProps } from '../../types/components';
 
 const ButtonSwitch: React.FC<ButtonSwitchProps> = ({ handleSetTheme }) => {
   const [isChecked, setIsChedked] = React.useState(true);

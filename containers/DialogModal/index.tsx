@@ -18,6 +18,7 @@ import { useMemo } from 'react';
 import { useState } from 'react';
 import { useWindowSize } from '../../core/hooks/useWindowSize';
 import { List, ListItem } from '@material-ui/core';
+import { DialogModalProps } from '../../types/containers';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -26,18 +27,12 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction={randomDirections()} ref={ref} {...props} />;
 });
 
-interface DialogModalProps {
-  label: string;
-  title: string;
-  content: string;
-}
-
 const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
   const [open, setOpen] = React.useState(false);
 
   const { player, handleAnswer, questionsCounter, hasNext } = usePlayer();
 
-  const { questions, handleGameStartOptions, isLoading } = useOptions();
+  const { questions, handleGameStartOptions } = useOptions();
 
   const [currentAnswers, setCurrentAnswers] = useState<(string | boolean)[]>(
     []
@@ -109,10 +104,6 @@ const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
       setCurrentAnswers(newArrayOfAnswers);
     }
   }, [questions, handleAnswer]);
-
-  if (isLoading) {
-    return <div>loading</div>;
-  }
 
   if (!hasNext) {
     return (

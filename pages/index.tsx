@@ -6,6 +6,7 @@ const Home: React.FC = (): JSX.Element => {
   React.useEffect(() => {
     setLocalStorage();
   }, []);
+
   return (
     <>
       <HomeOptionsWithHomePlayer />

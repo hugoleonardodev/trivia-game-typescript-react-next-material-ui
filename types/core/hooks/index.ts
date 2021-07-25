@@ -1,12 +1,11 @@
-import { Dispatch, SetStateAction, ChangeEvent } from 'react';
-import { GameHistory } from '../../core/hooks/usePlayer';
+import React from 'react';
 
-import { Action } from '../../types/actions';
+import { Action } from '../actions';
 
 import { Question } from '../reducers/index';
 
 /**
- * Game Options Context Data from opentdb API
+ * Game Options Context Data
  * @questions : opentdb API results array of Question
  * @setQuestions : set opentdb API results
  * @handleQuestions : handle opentdb API response questions
@@ -22,11 +21,15 @@ import { Question } from '../reducers/index';
  * @setIsLoading : set loading opentdb API data
  * @handleSetTheme : handle theme switching
  * @switchTheme : boolean false to light true dark
+ * @handleAmount : handle questions amounts set by the player
+ * @handleDifficulty : handle difficulty levels set by the player
+ * @handleGameStartOptions : starts the game with options set by the player
+ * @handleClearOptions : clears all options set by the player
  */
 
 export interface GameOptionsContextData {
   questions: Question[];
-  setQuestions: Dispatch<Action>;
+  setQuestions: React.Dispatch<Action>;
   handleQuestions: (
     amount: any,
     category: any,
@@ -34,20 +37,23 @@ export interface GameOptionsContextData {
     type: any
   ) => Promise<void>;
   amountOfQuestions: number;
-  setAmountOfQuestions: Dispatch<SetStateAction<number>>;
+  setAmountOfQuestions: React.Dispatch<React.SetStateAction<number>>;
   difficultyLevel: number;
-  setDifficultyLevel: Dispatch<SetStateAction<number>>;
+  setDifficultyLevel: React.Dispatch<React.SetStateAction<number>>;
   questionsCategories: number;
-  setQuestionsCategories: Dispatch<SetStateAction<number>>;
+  setQuestionsCategories: React.Dispatch<React.SetStateAction<number>>;
   error: boolean;
-  handleError: Dispatch<SetStateAction<boolean>>;
+  handleError: React.Dispatch<React.SetStateAction<boolean>>;
   isLoading: boolean;
-  setIsLoading: Dispatch<SetStateAction<boolean>>;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   handleSetTheme: (isChecked: boolean) => void;
   switchTheme: boolean;
-  handleAmount: (event: ChangeEvent<HTMLInputElement>, value: number) => void;
+  handleAmount: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    value: number
+  ) => void;
   handleDifficulty: (
-    event: ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>,
     value: number
   ) => void;
   handleGameStartOptions: () => Promise<void>;
@@ -55,6 +61,30 @@ export interface GameOptionsContextData {
 }
 
 /**
+ * Game Options Provider
+ * @handleSetTheme : handles player's switch theme
+ * @switchTheme : boolean swaps the theme
+ */
+
+export interface OptionsProviderProps {
+  handleSetTheme: (isChecked: boolean) => void;
+  switchTheme: boolean;
+}
+
+/**
+ * Game Options Provider
+ * @handleSetTheme : handles player's switch theme
+ * @switchTheme : boolean swaps the theme
+ */
+
+export interface GameHistory {
+  currentQuestion: Question;
+  playerAnswer: string;
+  isCorrect: boolean;
+}
+
+/**
+ * Game Player Context Data
  * @player : game player
  * @setPlayer : set game player nickname
  * @gitHubUserName : player's GitHub username
@@ -64,19 +94,30 @@ export interface GameOptionsContextData {
  * @setPlayerTimer : set player's timer
  * @hasNext : true if has more questions, false if not
  * @setHasNext : handle change if has next or not
+ * @handlePlayer : handle player's name input
+ * @handleGitHubUserName : handle player's GitHub username input
+ * @handleAnswer : handle player's click answers
+ * @questionsCounter : coutnts questions answereds
+ * @correctAnswers : amout of correct answers
+ * @wrongAnswers : amout of wrong answers
+ * @handleGameHistory : updates player's game history
+ * @gameHistory : array with game questions and player answers
+ * @playerRating : player average score rating %
+ * @handleGameRanking : updates trivia game rankings
+ * @handleClearAll : clears all states from player and options
  */
 
 export interface GamePlayerContextData {
   player: string;
-  setPlayer: Dispatch<SetStateAction<string>>;
+  setPlayer: React.Dispatch<React.SetStateAction<string>>;
   gitHubUserName: string;
-  setGitHubUserName: Dispatch<SetStateAction<string>>;
+  setGitHubUserName: React.Dispatch<React.SetStateAction<string>>;
   playerScore: number;
-  setPlayerScore: Dispatch<SetStateAction<number>>;
+  setPlayerScore: React.Dispatch<React.SetStateAction<number>>;
   playerTimer: number;
-  setPlayerTimer: Dispatch<SetStateAction<number>>;
+  setPlayerTimer: React.Dispatch<React.SetStateAction<number>>;
   hasNext: boolean;
-  setHasNext: Dispatch<SetStateAction<boolean>>;
+  setHasNext: React.Dispatch<React.SetStateAction<boolean>>;
   handlePlayer: (event: any) => void;
   handleGitHubUserName: (event: any) => void;
   handleAnswer: (event: any) => void;
