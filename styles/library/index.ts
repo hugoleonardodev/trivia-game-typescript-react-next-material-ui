@@ -8,14 +8,6 @@ export const GlobalCss = withStyles({
     '.MuiToolbar-root': {
       fontSize: '1.75rem',
     },
-    '.MuiTimelineDot-defaultGrey': {
-      // color: '#fafafa',
-      // borderColor: 'transparent',
-      // backgroundColor: '#bdbdbd',
-    },
-    '.MuiTimelineConnector-root': {
-      backgroundColor: 'disabled',
-    },
     body: {
       height: '100vh',
       width: '100vw',
@@ -27,7 +19,7 @@ export const GlobalCss = withStyles({
       width: 'inherit',
       position: 'absolute',
       textDecoration: 'none',
-      color: 'inherit',
+      color: 'transparent',
       padding: '16px',
     },
   },
@@ -37,7 +29,6 @@ export const MaterialIcons = withStyles({
   root: {
     fontFamily: 'Material Icons',
     fontSize: '2rem',
-    // transform: 'translateX(16px)',
   },
 })(Typography);
 

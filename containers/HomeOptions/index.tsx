@@ -16,6 +16,8 @@ import ButtonSwitch from '../../components/ButtonSwitch';
 import { MaterialIcons } from '../../styles/library';
 
 import { marks } from '../../common/constants';
+import { useRouter } from 'next/dist/client/router';
+import { getRouteTruthy } from '../../common/helpers';
 
 function convertValueToText(value: number) {
   return `${value}°C`;
@@ -32,6 +34,8 @@ interface Props {
 }
 
 const HomeOptions: React.FC<Props> = (props) => {
+  const { window } = props;
+
   const {
     amountOfQuestions,
     difficultyLevel,
@@ -39,15 +43,18 @@ const HomeOptions: React.FC<Props> = (props) => {
     handleAmount,
     handleDifficulty,
   } = useOptions();
-  const { window } = props;
 
   const styles = useStyles();
 
+  const router = useRouter();
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const handleDrawerToggle = () => {
+  const isHome = React.useMemo(() => getRouteTruthy(router.pathname, '/'), []);
+
+  const handleDrawerToggle = React.useCallback(() => {
     setMobileOpen(!mobileOpen);
-  };
+  }, [setMobileOpen, mobileOpen]);
 
   const drawer = (
     <div>
@@ -96,7 +103,9 @@ const HomeOptions: React.FC<Props> = (props) => {
   return (
     <div className={styles.root}>
       <AppBar position="fixed">
-        <Toolbar>
+        <Toolbar
+          style={{ justifyContent: isHome ? 'flex-end' : 'space-between' }}
+        >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -106,9 +115,9 @@ const HomeOptions: React.FC<Props> = (props) => {
           >
             <MaterialIcons>menu</MaterialIcons>
           </IconButton>
-          <Typography className={styles.logo} variant="h6" noWrap>
+          <Typography variant="h6">Trivia Game</Typography>
+          <Typography className={styles.logo} component="div" noWrap>
             <MaterialIcons>psychology</MaterialIcons>
-            Trivia Game
           </Typography>
         </Toolbar>
       </AppBar>

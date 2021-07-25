@@ -7,13 +7,9 @@ export function genericReducer(
   action: Action
 ): any {
   switch (action.type) {
-    case 'ADD':
-      return [...state.questions, action.payload];
-    case 'REMOVE':
-      return state.questions.filter((item: any) => item.id !== action.payload);
     case GenerericReducer.UPDATE_ALL:
       return action.payload;
-    case 'UPDATE-ALL':
+    case GenerericReducer.CLEAR_ALL:
       return action.payload;
     default:
       return state;

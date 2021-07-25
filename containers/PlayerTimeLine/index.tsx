@@ -20,7 +20,7 @@ import MarkdownParser from '../../components/MarkdownParser';
 const correct = '#8bc34a';
 const wrong = '#f44336';
 
-const QuestionsReports: React.FC = () => {
+const PlayerTimeLine: React.FC = () => {
   const styles = useStyles();
 
   const storage = getLocalStorage('triviaGame');
@@ -33,7 +33,7 @@ const QuestionsReports: React.FC = () => {
           <TimelineItem key={`${index}-${question}`}>
             {index % 2 === 0 ? (
               <TimelineOppositeContentLeft>
-                <Typography variant="body2" color="textSecondary">
+                <Typography component="div" color="textSecondary">
                   {'Correct Answer:'}
                   <MarkdownParser
                     markdown={question.currentQuestion.correct_answer}
@@ -42,7 +42,7 @@ const QuestionsReports: React.FC = () => {
               </TimelineOppositeContentLeft>
             ) : (
               <TimelineOppositeContentRight>
-                <Typography variant="body2" color="textSecondary">
+                <Typography component="div" color="textSecondary">
                   {'Correct Answer:'}
                   <MarkdownParser
                     markdown={question.currentQuestion.correct_answer}
@@ -72,12 +72,12 @@ const QuestionsReports: React.FC = () => {
             </TimelineSeparator>
             <TimelineContent>
               <Paper elevation={3} className={styles.timeLinePaper}>
-                <Typography>
+                <Typography component="div">
                   <MarkdownParser
                     markdown={question.currentQuestion.question}
                   />
                 </Typography>
-                <Typography variant="h6" component="h1">
+                <Typography component="div">
                   <MarkdownParser markdown={question.playerAnswer} />
                 </Typography>
               </Paper>
@@ -89,4 +89,4 @@ const QuestionsReports: React.FC = () => {
   );
 };
 
-export default QuestionsReports;
+export default PlayerTimeLine;

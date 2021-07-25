@@ -179,6 +179,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       // display: 'flex',
     },
     playerRating: {
+      marginTop: '36px',
       [theme.breakpoints.down('xs')]: {
         display: 'none',
       },
@@ -215,6 +216,32 @@ export const useStyles = makeStyles((theme: Theme) =>
         color: theme.palette.secondary.contrastText,
       },
       disabled: {},
+    },
+    displayFooter: {
+      display: 'flex',
+      alignItems: 'center',
+      marginTop: '16px',
+    },
+    displayFooterInGame: {
+      marginTop: '60vh',
+      display: 'flex',
+      alignItems: 'center',
+    },
+    playerName: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    dialogInGame: {
+      marginTop: '16%',
+    },
+    displayHeader: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    playerOptions: {
+      [theme.breakpoints.down('xs')]: {
+        display: 'none',
+      },
     },
   })
 );

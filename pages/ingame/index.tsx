@@ -6,14 +6,14 @@ import { dialogs } from '../../common/constants';
 
 const InGame: React.FC = () => {
   return (
-    <div>
+    <>
       <DisplayHeader />
       <DialogModal
         label={dialogs.home.label}
         title={dialogs.home.title}
         content={dialogs.home.content}
       />
-    </div>
+    </>
   );
 };
 

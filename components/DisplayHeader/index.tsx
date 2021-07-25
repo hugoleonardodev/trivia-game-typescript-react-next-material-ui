@@ -12,21 +12,24 @@ import { useStyles } from '../../styles/global';
 import { MaterialIcons } from '../../styles/library';
 import { useOptions } from '../../core/hooks';
 import { usePlayer } from '../../core/hooks/usePlayer';
-import { getOptionsStrings } from '../../common/helpers';
+import { getOptionsStrings, getRouteTruthy } from '../../common/helpers';
 import ImageAvatar from '../ImageAvatar';
 import PlayerRating from '../PlayerRating';
 
 const DisplayHeader: React.FC = () => {
-  const router = useRouter();
-
-  const isDashboard = router.pathname === '/dashboard';
-
   const styles = useStyles();
+
+  const router = useRouter();
 
   const { amountOfQuestions, difficultyLevel } = useOptions();
 
   const { player, gitHubUserName, correctAnswers, wrongAnswers, playerRating } =
     usePlayer();
+
+  const isDashboard = React.useMemo(
+    () => getRouteTruthy(router.pathname, '/dashboard'),
+    [router]
+  );
 
   const options = getOptionsStrings(amountOfQuestions, difficultyLevel);
 
@@ -41,7 +44,7 @@ const DisplayHeader: React.FC = () => {
               <ListItem>
                 <ImageAvatar gitHubUserName={gitHubUserName} />
               </ListItem>
-              <ListItem>
+              <ListItem className={styles.playerName}>
                 <Typography variant="h5" noWrap>
                   {player}
                 </Typography>
@@ -49,12 +52,8 @@ const DisplayHeader: React.FC = () => {
             </List>
           )}
 
-          <Typography className={styles.headerTitle} variant="h5" noWrap>
-            Trivia Game
-          </Typography>
-
           <List>
-            <ListItem>
+            <ListItem className={styles.playerOptions}>
               <Badge>
                 <MaterialIcons>pin</MaterialIcons>
               </Badge>
@@ -65,7 +64,7 @@ const DisplayHeader: React.FC = () => {
                 {options.amountString}
               </Avatar>
             </ListItem>
-            <ListItem>
+            <ListItem className={styles.playerOptions}>
               <Badge>
                 <MaterialIcons>assessment</MaterialIcons>
               </Badge>

@@ -11,8 +11,10 @@ import { TransitionProps } from '@material-ui/core/transitions';
 import ButtonOutlined from '../../components/ButtonOutlined';
 import { usePlayer } from '../../core/hooks/usePlayer';
 import { useOptions } from '../../core/hooks';
-import { randomDirections } from '../../common/helpers';
+import { getRouteTruthy, randomDirections } from '../../common/helpers';
 import MarkdownParser from '../../components/MarkdownParser';
+import { useStyles } from '../../styles/global';
+import { useMemo } from 'react';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children?: React.ReactElement<any, any> },
@@ -34,9 +36,16 @@ const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
 
   const { questions, handleGameStartOptions, isLoading } = useOptions();
 
+  const styles = useStyles();
+
   const router = useRouter();
 
-  const isHome = router.pathname === '/';
+  const isHome = useMemo(() => getRouteTruthy(router.pathname, '/'), [router]);
+
+  const isInGame = useMemo(
+    () => getRouteTruthy(router.pathname, '/ingame'),
+    [router]
+  );
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -77,7 +86,8 @@ const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
         </DialogContent>
         <DialogActions>
           <ButtonOutlined handleClick={(e) => e.preventDefault()}>
-            <Link href="/dashboard">Dashboards</Link>
+            Go to Dashboard
+            <Link href="/dashboard">Go to Dashboard</Link>
           </ButtonOutlined>
         </DialogActions>
       </Dialog>
@@ -98,10 +108,11 @@ const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
         onClose={handleClose}
         aria-labelledby={`${label}-title`}
         aria-describedby={`${label}-description`}
+        className={isInGame ? styles.dialogInGame : ''}
       >
         {isHome && <DialogTitle id={`${label}-title`}>{title}</DialogTitle>}
         <DialogContent>
-          <DialogContentText id={`${label}-description`}>
+          <DialogContentText component="div" id={`${label}-description`}>
             {isHome && `Hello ${player}!! `}
             {isHome ? content : <MarkdownParser markdown={question.question} />}
           </DialogContentText>
@@ -121,6 +132,7 @@ const DialogModal: React.FC<DialogModalProps> = ({ label, title, content }) => {
 
           {isHome ? (
             <ButtonOutlined handleClick={handleGameStartOptions}>
+              Start
               <Link href="/ingame">Start</Link>
             </ButtonOutlined>
           ) : (

@@ -44,21 +44,16 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({
   const handleQuestions = useCallback(
     async (amount: number, category, difficulty, type) => {
       setIsLoading(true);
-
       const response = await getAllQuestions(
         amount,
         category,
         difficulty,
         type
       );
-      // console.log(response);
       if (response.length > 0) {
         setQuestions({ type: '@questions/UPDATE_ALL', payload: response });
-
         return setIsLoading(false);
       }
-      // setIsLoading(false);
-
       return handleError(true);
     },
     [questions, setIsLoading]
@@ -79,7 +74,6 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({
   );
 
   const handleGameStartOptions = useCallback(async () => {
-    // setIsLoading(true);
     const options = getOptionsStrings(amountOfQuestions, difficultyLevel);
     await handleQuestions(
       options.amountString,
@@ -87,13 +81,22 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({
       options.difficultyString,
       ''
     );
-    // setIsLoading(false);
+  }, [getOptionsStrings, amountOfQuestions, difficultyLevel]);
+
+  const handleClearOptions = useCallback(() => {
+    setQuestions({ type: '@questions/CLEAR_ALL', payload: [] });
+    setAmountOfQuestions(0);
+    setDifficultyLevel(0);
+    setQuestionsCategories(0);
+    handleError(false);
+    setIsLoading(false);
   }, [
-    // setIsLoading,
-    // handleQuestions,
-    getOptionsStrings,
-    amountOfQuestions,
-    difficultyLevel,
+    setQuestions,
+    setAmountOfQuestions,
+    setDifficultyLevel,
+    setQuestionsCategories,
+    handleError,
+    setIsLoading,
   ]);
 
   return (
@@ -117,6 +120,7 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({
         handleAmount,
         handleDifficulty,
         handleGameStartOptions,
+        handleClearOptions,
       }}
     >
       {children}

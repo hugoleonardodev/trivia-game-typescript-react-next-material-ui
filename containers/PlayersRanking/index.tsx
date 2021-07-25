@@ -2,24 +2,14 @@ import React from 'react';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AppBar from '@material-ui/core/AppBar';
+import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-// import Timeline from '@material-ui/lab/Timeline';
-// import Paper from '@material-ui/core/Paper';
-// import TimelineItem from '@material-ui/lab/TimelineItem';
-// import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
-// import TimelineConnector from '@material-ui/lab/TimelineConnector';
-// import TimelineContent from '@material-ui/lab/TimelineContent';
-// import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
-// import TimelineDot from '@material-ui/lab/TimelineDot';
 import { MaterialIcons } from '../../styles/library';
 import { useStyles } from '../../styles/global';
 import { getLocalStorage } from '../../services';
-import DisplayHeader from '../../components/DisplayHeader';
-// import MarkdownParser from '../../components/MarkdownParser';
-
-// const correct = '#8bc34a';
-// const wrong = '#f44336';
 
 const PlayersRanking: React.FC = () => {
   const styles = useStyles();
@@ -28,39 +18,37 @@ const PlayersRanking: React.FC = () => {
 
   return (
     <>
-      <DisplayHeader />
+      <AppBar position="static" className={styles.displayHeader}>
+        <Toolbar>
+          <MaterialIcons>emoji_events</MaterialIcons>
+          <Typography variant="h6">Rankings</Typography>
+        </Toolbar>
+      </AppBar>
 
       <div className={styles.accordion}>
-        {storage.gameHistory.map((question, index) => (
-          <Accordion
-            key={question.currentQuestion.question}
-            className={
-              question.isCorrect
-                ? styles.accordionCorrect
-                : styles.accordionWrong
-            }
-          >
+        {storage.ranking.map((player, index) => (
+          <Accordion key={player.playerName}>
             <AccordionSummary
               expandIcon={<MaterialIcons>expand_more</MaterialIcons>}
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
               <Typography className={styles.accordionHeading}>
-                {`Player - ${index + 1}`}
+                {`${index + 1} - ${player.playerName}`}
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>{question.currentQuestion.question}</Typography>
+              <Avatar src={player.playerAvatar} />
               <div className={styles.chipsDashboard}>
                 <Chip
                   icon={<MaterialIcons>done_outline</MaterialIcons>}
-                  label={`${question.currentQuestion.correct_answer}`}
-                  color="secondary"
+                  label={`${player.playerRating}`}
+                  color="primary"
                 />
                 <Chip
                   icon={<MaterialIcons>done_outline</MaterialIcons>}
-                  label={`${question.currentQuestion.correct_answer}`}
-                  color="primary"
+                  label={`Difficulty = Hard`}
+                  color="secondary"
                 />
               </div>
             </AccordionDetails>

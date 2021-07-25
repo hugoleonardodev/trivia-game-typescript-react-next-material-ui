@@ -1,9 +1,9 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 import { useStyles } from '../../styles/global';
 
 interface ButtonOutlinedProps {
-  children?: ReactNode;
+  children?: React.ReactNode;
   handleClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 

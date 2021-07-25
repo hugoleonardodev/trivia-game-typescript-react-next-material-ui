@@ -1,5 +1,9 @@
 import { UrlOptions } from '../../types/helpers';
 
+/**
+ * @generateUrl : generates a url query from player options
+ */
+
 const generateUrl = (options: UrlOptions): string => {
   let urlWithOptions = '';
 
@@ -10,33 +14,37 @@ const generateUrl = (options: UrlOptions): string => {
   return urlWithOptions || '';
 };
 
-const markdownParser = (markdown: string): string => {
-  const quotes = markdown.split('&quot;');
+// const markdownParser = (markdown: string): string => {
+//   const quotes = markdown.split('&quot;');
 
-  const singles = markdown.split('&#039;');
+//   const singles = markdown.split('&#039;');
 
-  const amps = markdown.split('&amp;');
+//   const amps = markdown.split('&amp;');
 
-  let result = '';
+//   let result = '';
 
-  if (quotes.length > 0) {
-    result = markdown.replaceAll('&quot;', '"');
-  }
+//   if (quotes.length > 0) {
+//     result = markdown.replaceAll('&quot;', '"');
+//   }
 
-  if (singles.length > 0) {
-    result = result.replaceAll('&#039;', "'");
-  }
+//   if (singles.length > 0) {
+//     result = result.replaceAll('&#039;', "'");
+//   }
 
-  if (amps.length > 0) {
-    result = result.replaceAll('&amp;', '&');
-  }
+//   if (amps.length > 0) {
+//     result = result.replaceAll('&amp;', '&');
+//   }
 
-  return result;
-};
+//   return result;
+// };
 
 interface Directions {
   directions?: 'up' | 'down' | 'left' | 'right';
 }
+
+/**
+ * @randomDirections : returns a random direction 'up', 'dowm', 'left', 'right'
+ */
 
 const randomDirections = (): Directions['directions'] => {
   const position = Number(Math.round(Math.random() * 3));
@@ -55,6 +63,10 @@ const randomDirections = (): Directions['directions'] => {
   }
 };
 
+/**
+ * @getAmountString : returns a string query for amount of questions
+ */
+
 const getAmountString = (amount: number) => {
   if (amount > 30 && amount < 60) {
     return 20;
@@ -70,6 +82,10 @@ const getAmountString = (amount: number) => {
 
   return 10;
 };
+
+/**
+ * @getDifficultyString : returns a string query for difficulty level
+ */
 
 const getDifficultyString = (difficulty: number) => {
   if (difficulty > 30 && difficulty < 60) {
@@ -92,6 +108,10 @@ interface Options {
   difficultyString: string;
 }
 
+/**
+ * @getOptionsStrings : strings for difficulty and amout from player options
+ */
+
 const getOptionsStrings = (amount: number, difficulty: number): Options => {
   const difficultyString = getDifficultyString(difficulty);
 
@@ -105,4 +125,15 @@ const getOptionsStrings = (amount: number, difficulty: number): Options => {
   return options;
 };
 
-export { generateUrl, markdownParser, randomDirections, getOptionsStrings };
+/**
+ * @getRouteTruthy : true if router pathname is equals to given pathname
+ */
+
+const getRouteTruthy = (
+  routerPathname: string,
+  givenPathname: string
+): boolean => {
+  return routerPathname === givenPathname;
+};
+
+export { generateUrl, randomDirections, getOptionsStrings, getRouteTruthy };

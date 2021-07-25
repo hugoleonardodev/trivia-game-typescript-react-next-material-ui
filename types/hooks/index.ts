@@ -51,6 +51,7 @@ export interface GameOptionsContextData {
     value: number
   ) => void;
   handleGameStartOptions: () => Promise<void>;
+  handleClearOptions: () => void;
 }
 
 /**
@@ -79,11 +80,12 @@ export interface GamePlayerContextData {
   handlePlayer: (event: any) => void;
   handleGitHubUserName: (event: any) => void;
   handleAnswer: (event: any) => void;
-  // question: Question;
   questionsCounter: number;
   correctAnswers: number;
   wrongAnswers: number;
   handleGameHistory: (event: any) => void;
   gameHistory: GameHistory[];
   playerRating: number;
+  handleGameRanking: (event: any) => void;
+  handleClearAll: () => void;
 }

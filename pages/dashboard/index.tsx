@@ -1,27 +1,29 @@
 import React from 'react';
 import Link from 'next/link';
 import Fab from '@material-ui/core/Fab';
-import QuestionsReports from '../../containers/QuestionsReports';
+import PlayerTimeLine from '../../containers/PlayerTimeLine';
 import ScrollTop from '../../components/ScrollToTop';
 import { useStyles } from '../../styles/global';
+import { usePlayer } from '../../core/hooks/usePlayer';
 
 const DashBoard: React.FC = (props) => {
   const styles = useStyles();
+  const { handleGameRanking } = usePlayer();
   return (
     <>
       <div id="back-to-top-anchor" />
-      <QuestionsReports />
-      <Link href="/rankings">
-        <Fab
-          className={styles.goToRankigs}
-          color="secondary"
-          size="small"
-          aria-label="scroll back to top"
-          variant="extended"
-        >
-          Rankings
-        </Fab>
-      </Link>
+      <PlayerTimeLine />
+      <Fab
+        className={styles.goToRankigs}
+        color="secondary"
+        size="small"
+        aria-label="scroll back to top"
+        variant="extended"
+        onClick={handleGameRanking}
+      >
+        Rankings
+        <Link href="/rankings">Rankings</Link>
+      </Fab>
       <ScrollTop {...props}>
         <Fab color="secondary" size="small" aria-label="scroll back to top">
           Top
