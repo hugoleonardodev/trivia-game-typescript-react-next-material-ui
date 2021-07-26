@@ -36,4 +36,6 @@ describe('Tests the behavior of the ButtonSwitch component and side effects.', (
       'justify-content: inherit;'
     );
   });
+
+  test.todo('Switch Colo Theme');
 });
