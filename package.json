@@ -1,6 +1,17 @@
 {
-  "name": "with-typescript-eslint-jest",
-  "author": "@erikdstock",
+  "name": "trivia-game-typescript-react-next-material-ui",
+  "description": "A simple Trivia Game from opentdb api",
+  "keywords": [
+    "game",
+    "trivia",
+    "opentdb",
+    "typescript",
+    "react",
+    "next",
+    "material-ui",
+    "ssr"
+  ],
+  "author": "Hugo Leonardo",
   "license": "MIT",
   "version": "1.0.0",
   "scripts": {
