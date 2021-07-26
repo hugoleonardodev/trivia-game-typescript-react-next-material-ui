@@ -1,33 +1,104 @@
-# NextJS Typescript Boilerplate
+# Trivia Game
 
-Bootstrap a developer-friendly NextJS app configured with:
+An interactive Trivia Game with questions and answers
+
+- Database from [OpenTriviaDatabase](https://opentdb.com/)
+
+This applications is configured with:
 
 - [Typescript](https://www.typescriptlang.org/)
+- [React](https://reactjs.org/)
+- [Next](https://nextjs.org/)
 - Linting with [ESLint](https://eslint.org/)
 - Formatting with [Prettier](https://prettier.io/)
 - Linting, typechecking and formatting on by default using [`husky`](https://github.com/typicode/husky) for commit hooks
 - Testing with [Jest](https://jestjs.io/) and [`react-testing-library`](https://testing-library.com/docs/react-testing-library/intro)
+- Components and styles from [material-ui](https://material-ui.com/)
+- API requests using [axios](https://axios-http.com/docs/intro)
+- Custom loading between routes by [nprogress](https://ricostacruz.com/nprogress/)
 
 ## Preview
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+Preview the example live on [CodeSandBox](https://codesandbox.io/s/game-trivia-with-typescript-react-next-material-ui-1y6po)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-typescript-eslint-jest)
+Play it [TriviaGame](https://1y6po.sse.codesandbox.io/) !
 
-## Deploy your own
+## Deploy
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+Deployed the applications using [Vercel](https://trivia-game-typescript-react-next-material-ui.vercel.app/):
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript-eslint-jest&project-name=with-typescript-eslint-jest&repository-name=with-typescript-eslint-jest)
+**it builds with some issues on styles, but working good**
 
 ## How to use
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+- Install - install the application modules
 
 ```bash
-npx create-next-app --example with-typescript-eslint-jest with-typescript-eslint-jest-app
-# or
-yarn create next-app --example with-typescript-eslint-jest with-typescript-eslint-jest-app
+  yarn install
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+- Analyze - analyzes both server and browser bundles
+
+```bash
+  yarn run analyze
+```
+
+- Analyze Browser - analyzes browser bundles
+
+```bash
+  yarn run analyze:browser
+```
+
+- Analyze Server - analyzes server bundles
+
+```bash
+  yarn run analyze:server
+```
+
+- Build - builds the application with next build
+
+```bash
+  yarn build
+```
+
+- Dev - runs the application with next dev on local environment
+
+```bash
+  yarn dev
+```
+
+- Format - prettier formater for code
+
+```bash
+  yarn run format
+```
+
+- Lint - eslint check linter
+
+```bash
+  yarn run lint
+```
+
+- Start - next start
+
+```bash
+  yarn start
+```
+
+- Type Check - typescript check types
+
+```bash
+  yarn run type:check
+```
+
+- Test - tests with jest
+
+```bash
+  yarn test
+```
+
+- Test All - linter, type checking, and jest tests
+
+```bash
+  yarn run test-all
+```
