@@ -100,7 +100,7 @@ const getRouteTruthy = (
   routerPathname: string,
   givenPathname: string
 ): boolean => {
-  return routerPathname === givenPathname;
+  return routerPathname === givenPathname || routerPathname === '/index';
 };
 
 export { generateUrl, randomDirections, getOptionsStrings, getRouteTruthy };

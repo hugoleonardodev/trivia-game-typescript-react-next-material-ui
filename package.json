@@ -10,7 +10,7 @@
     "type-check": "tsc --pretty --noEmit",
     "format": "prettier --write .",
     "lint": "eslint . --ext ts --ext tsx --ext js",
-    "test": "jest --collectCoverage --watch",
+    "test": "jest --collectCoverage --testTimeout=60000",
     "test-all": "yarn lint && yarn type-check && yarn test"
   },
   "husky": {
@@ -29,7 +29,7 @@
     "@material-ui/core": "^4.12.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "axios": "^0.21.1",
-    "next": "latest",
+    "next": "^10.0.8",
     "nprogress": "^0.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

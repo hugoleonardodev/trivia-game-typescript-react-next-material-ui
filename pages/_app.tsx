@@ -34,16 +34,16 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       NProgress.done();
     };
 
-    router.events.on('routeChangeStart', handleStart);
-    router.events.on('routeChangeComplete', handleStop);
-    router.events.on('routeChangeError', handleStop);
+    Router.events.on('routeChangeStart', handleStart);
+    Router.events.on('routeChangeComplete', handleStop);
+    Router.events.on('routeChangeError', handleStop);
 
     return () => {
-      router.events.off('routeChangeStart', handleStart);
-      router.events.off('routeChangeComplete', handleStop);
-      router.events.off('routeChangeError', handleStop);
+      Router.events.off('routeChangeStart', handleStart);
+      Router.events.off('routeChangeComplete', handleStop);
+      Router.events.off('routeChangeError', handleStop);
     };
-  }, [router]);
+  }, [Router]);
 
   const handleSetTheme = React.useCallback(
     (isChecked: boolean) => {

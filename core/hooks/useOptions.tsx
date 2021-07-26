@@ -10,6 +10,7 @@ import {
   GameOptionsContextData,
   OptionsProviderProps,
 } from '../../types/core/hooks';
+import apiResponseOk from '../../tests/mocks/apiResponseOk';
 
 export const OptionsContext = React.createContext<GameOptionsContextData>(
   {} as GameOptionsContextData
@@ -20,7 +21,10 @@ export const OptionsProvider: React.FC<OptionsProviderProps> = ({
   handleSetTheme,
   switchTheme,
 }) => {
-  const [questions, setQuestions] = React.useReducer(genericReducer, []);
+  const [questions, setQuestions] = React.useReducer(
+    genericReducer,
+    apiResponseOk.results
+  );
 
   const [amountOfQuestions, setAmountOfQuestions] = React.useState(0);
 

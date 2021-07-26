@@ -19,6 +19,7 @@ const ButtonOutlined: React.FC<ButtonOutlinedProps> = ({
           variant="outlined"
           onClick={(e) => handleClick(e)}
           value={hasValue}
+          data-testid={`button-answer-${hasValue}`}
         >
           {children}
         </Button>

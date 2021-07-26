@@ -25,4 +25,5 @@ module.exports = {
     '**/*.{ts,tsx}',
     '/pages/**',
   ],
+  testTimeout: 60,
 };

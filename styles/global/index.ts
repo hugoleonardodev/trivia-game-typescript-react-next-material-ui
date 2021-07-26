@@ -275,5 +275,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       bottom: theme.spacing(2),
       right: theme.spacing(2),
     },
+    switchThemeContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+    },
   })
 );

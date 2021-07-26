@@ -53,8 +53,7 @@ const PlayerRating: React.FC<PlayerRatingProps> = ({ rating }) => {
   React.useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prevProgress) =>
-        // prevProgress <= rating ? 0 : prevProgress + 10
-        prevProgress + 10 >= rating ? rating + 10 : prevProgress + 10
+        prevProgress + 10 >= rating ? rating : prevProgress + 10
       );
     }, 800);
     if (progress === rating) {

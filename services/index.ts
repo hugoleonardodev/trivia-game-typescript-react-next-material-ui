@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { baseUrl, triviaGameLocalStorage } from '../common/constants';
 import { generateUrl } from '../common/helpers';
-import { GameHistory } from '../core/hooks/usePlayer';
+import apiResponseOk from '../tests/mocks/apiResponseOk';
+import { GameHistory } from '../types/core/hooks';
 
 export const getAllQuestions = async (
   amount: number,
@@ -12,9 +13,17 @@ export const getAllQuestions = async (
   const url =
     `${baseUrl}amount=${amount}` + generateUrl({ category, difficulty, type });
 
+  const handleResponse = (response: any) => {
+    if (response.data) {
+      return response.data.results;
+    }
+    // mocked response api
+    return apiResponseOk;
+  };
+
   const result = await axios
     .get(url, { method: 'GET' })
-    .then((response) => response.data.results);
+    .then((response) => handleResponse(response));
 
   return result;
 };

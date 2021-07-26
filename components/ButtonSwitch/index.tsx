@@ -1,24 +1,21 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import { ButtonSwitchProps } from '../../types/components';
+import { useStyles } from '../../styles/global';
 
 const ButtonSwitch: React.FC<ButtonSwitchProps> = ({ handleSetTheme }) => {
+  const styles = useStyles();
+
   const [isChecked, setIsChedked] = React.useState(true);
 
-  const handleChange = useCallback(() => {
+  const handleChange = React.useCallback(() => {
     setIsChedked(!isChecked);
     handleSetTheme(!isChecked);
   }, [isChecked]);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-      }}
-    >
+    <div className={styles.switchThemeContainer}>
       <Typography id="discrete-slider-always" gutterBottom>
         Switch Color Theme
       </Typography>
