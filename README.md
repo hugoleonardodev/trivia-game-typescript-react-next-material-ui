@@ -31,67 +31,67 @@ Deployed the applications using [Vercel](https://trivia-game-typescript-react-ne
 
 ## How to use
 
-- Install - install the application modules
+- Install the application modules
 
 ```bash
   yarn install
 ```
 
-- Analyze - analyzes both server and browser bundles
+- Analyzes both server and browser bundles
 
 ```bash
   yarn run analyze
 ```
 
-- Analyze Browser - analyzes browser bundles
+- Analyze browser bundles
 
 ```bash
   yarn run analyze:browser
 ```
 
-- Analyze Server - analyzes server bundles
+- Analyze server bundles
 
 ```bash
   yarn run analyze:server
 ```
 
-- Build - builds the application with next build
+- Build the application with next build
 
 ```bash
   yarn build
 ```
 
-- Dev - runs the application with next dev on local environment
+- Dev runs the application with next dev on local environment
 
 ```bash
   yarn dev
 ```
 
-- Format - prettier formater for code
+- Format prettier
 
 ```bash
   yarn run format
 ```
 
-- Lint - eslint check linter
+- Lint check eslint
 
 ```bash
   yarn run lint
 ```
 
-- Start - next start
+- Start next start
 
 ```bash
   yarn start
 ```
 
-- Type Check - typescript check types
+- Type Check for typescript
 
 ```bash
   yarn run type:check
 ```
 
-- Test - tests with jest
+- Test with jest
 
 ```bash
   yarn test
